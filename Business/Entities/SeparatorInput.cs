@@ -52,6 +52,7 @@ namespace Business.Entities
         public double B70 { get; set; }
         public double B71 { get; set; }
         public double B72 { get; set; }
+        public double B81 { get; set; }
         #endregion
 
         #region Inlet Device

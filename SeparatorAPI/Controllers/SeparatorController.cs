@@ -61,6 +61,7 @@ namespace SeparatorAPI.Controllers
                 B70 = se.B70,
                 B71 = se.B71,
                 B72 = se.B72,
+                B81 = se.B81,
                 #endregion
                 #region Inlet Device
                 A108 = se.A108,
