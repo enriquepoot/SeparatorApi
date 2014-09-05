@@ -118,8 +118,20 @@ namespace SeparatorAPI.Controllers
                 #endregion
                 #region Mist Extractor Table
                 A131 = se.A131,
+                C123 = se.C123,
+                C124 = se.C124,
+                C125 = se.C125,
+                C126 = se.C126,
+                C127 = se.C127,
                 A143 = se.A143,
+                C136 = se.C136,
+                C137 = se.C137,
+                C138 = se.C138,
+                C139 = se.C139,
                 A155 = se.A155,
+                C149 = se.C149,
+                C150 = se.C150,
+                C151 = se.C151,
                 #endregion
                 #region Mist Extractor
                 B514 = (int)se.B514,

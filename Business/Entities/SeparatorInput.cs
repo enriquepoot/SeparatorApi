@@ -112,20 +112,20 @@ namespace Business.Entities
 
         #region Mist Extractor Table
         public double A131 { get; set; }
-        public int C123 { get; set; }
-        public int C124 { get; set; }
-        public int C125 { get; set; }
-        public int C126 { get; set; }
-        public int C127 { get; set; }
+        public double C123 { get; set; }
+        public double C124 { get; set; }
+        public double C125 { get; set; }
+        public double C126 { get; set; }
+        public double C127 { get; set; }
         public double A143 { get; set; }
-        public int C136 { get; set; }
-        public int C137 { get; set; }
-        public int C138 { get; set; }
-        public int C139 { get; set; }
+        public double C136 { get; set; }
+        public double C137 { get; set; }
+        public double C138 { get; set; }
+        public double C139 { get; set; }
         public double A155 { get; set; }
-        public int C149 { get; set; }
-        public int C150 { get; set; }
-        public int C151 { get; set; }
+        public double C149 { get; set; }
+        public double C150 { get; set; }
+        public double C151 { get; set; }
         #endregion
 
         #region Mist Extractor
