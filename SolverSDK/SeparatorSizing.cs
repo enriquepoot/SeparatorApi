@@ -4879,6 +4879,8 @@ namespace SolverSDK
             W232 = 2;
 
             //GetZ441Value();
+
+            D113 = D114 = D115 = 12.4;
         }
 
         #region Amir
