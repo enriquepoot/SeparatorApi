@@ -19,7 +19,7 @@
 			self.parent.append(self.sView.getDiv);
 			self.parent.append(self.sView.waitDiv);
 			self.parent.append(self.sView.postDiv);
-			self.sView.ToogleClass(["getDiv","waitDiv"], "hide");
+			self.sView.ToogleClass(["postDiv","getDiv"], "hide");
 		}
 		,_GetData: function () {
 			var self = this;
