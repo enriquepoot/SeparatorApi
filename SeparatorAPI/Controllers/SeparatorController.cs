@@ -1,6 +1,6 @@
 ﻿using Business.Entities;
 using SeparatorAPI.Attributes;
-using SolverSDK;
+using SolverSdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +21,10 @@ namespace SeparatorAPI.Controllers
         public SeparatorResponse Post(SeparatorInput model)
         {
             var se = new SeparatorSizing();
-            //UpdateSeparatorSizing(se, model);
+            UpdateSeparatorSizing(se, model);
             //Todo Solve
+            if (model.RunSolver)
+                se = SeparatorSizing.Solve(se);
             return GetSeparatorResponse(se);
         }
 

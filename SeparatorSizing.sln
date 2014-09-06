@@ -7,7 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeparatorAPI", "SeparatorAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{69DAF336-C422-4FD9-BFF3-4CB0625C9C3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolverSDK", "SolverSDK\SolverSDK.csproj", "{BAE13828-CC51-4136-AAD4-2A38C3FCBC6A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{414BD6F4-B089-4DBF-A90B-E7CA62F4B478}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{9DFEBF7B-6045-46F4-800D-B1B09CF35EFA}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\SeparatorSizeApi-WAWS-dev.json = PublishScripts\Configurations\SeparatorSizeApi-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolverSdk", "SolSdk\SolverSdk.csproj", "{ABFA12B9-E196-4B70-962C-AA9106315786}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +34,15 @@ Global
 		{69DAF336-C422-4FD9-BFF3-4CB0625C9C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69DAF336-C422-4FD9-BFF3-4CB0625C9C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69DAF336-C422-4FD9-BFF3-4CB0625C9C3A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BAE13828-CC51-4136-AAD4-2A38C3FCBC6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAE13828-CC51-4136-AAD4-2A38C3FCBC6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAE13828-CC51-4136-AAD4-2A38C3FCBC6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAE13828-CC51-4136-AAD4-2A38C3FCBC6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABFA12B9-E196-4B70-962C-AA9106315786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABFA12B9-E196-4B70-962C-AA9106315786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABFA12B9-E196-4B70-962C-AA9106315786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABFA12B9-E196-4B70-962C-AA9106315786}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9DFEBF7B-6045-46F4-800D-B1B09CF35EFA} = {414BD6F4-B089-4DBF-A90B-E7CA62F4B478}
 	EndGlobalSection
 EndGlobal

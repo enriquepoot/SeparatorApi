@@ -14,7 +14,7 @@
     <RootNamespace>SeparatorAPI</RootNamespace>
     <AssemblyName>SeparatorAPI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -29,7 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ApplicationInsights">
@@ -117,9 +118,9 @@
       <Project>{69daf336-c422-4fd9-bff3-4cb0625c9c3a}</Project>
       <Name>Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SolverSDK\SolverSDK.csproj">
-      <Project>{bae13828-cc51-4136-aad4-2a38c3fcbc6a}</Project>
-      <Name>SolverSDK</Name>
+    <ProjectReference Include="..\SolSdk\SolverSdk.csproj">
+      <Project>{abfa12b9-e196-4b70-962c-aa9106315786}</Project>
+      <Name>SolverSdk</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -137,7 +138,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>4444</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:4363/</IISUrl>
+          <IISUrl>http://localhost/SeparatorAPI</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

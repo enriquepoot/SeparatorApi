@@ -1,5 +1,5 @@
 ﻿using Business.Entities;
-using SolverSDK;
+using SolverSdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;

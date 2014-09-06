@@ -141,5 +141,9 @@ namespace Business.Entities
         public double H9 { get; set; }
         */
         #endregion
+
+        #region Option Variables
+        public bool RunSolver { get; set; }
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SolverPlatform;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -3762,7 +3763,7 @@ namespace SolverSDK
         }
         #endregion
 
-
+        #region 441 Table Sum Values
         public double GetJ441Value()
         {
 
@@ -4488,7 +4489,342 @@ namespace SolverSDK
 
             return z441;
         }
+        #endregion
 
+        #region Amir
+
+        public double B23 { get; set; }
+        public double B26 { get; set; }
+        public double B30 { get; set; }
+        public double B31 { get; set; }
+        public double B59 { get; set; }
+        public double B60 { get; set; }
+        public double B61 { get; set; }
+        public double B71 { get; set; }
+        public double B72 { get; set; }
+
+        public double D113 { get; set; }
+        public double D114 { get; set; }
+        public double D115 { get; set; }
+
+        public double B75 { get { return B174; } }
+        public double B76 { get { return B837; } }
+        public double B88 { get { return B525; } }
+        public double B91 { get { return C525; } }
+
+        public double H14 { get { return H7; } }
+        public double H24 { get { return B59 * B57 * (3.1416 * H16 * H17 * H19 / 12 + 2 * B58 * B60 * H20 / 12 * Math.Pow(H16, 2)) + B61 * (B456 + B473 + B569 + B541 + C541) + B59 * (B194 + E182 + H180); } }
+        public double H36 { get { return C88 - B88; } }
+        public double H40 { get { return C71 - B71; } }
+        public double H41 { get { return B3 == Position.Horizontal ? C72 - B72 : -99; } }
+        public double H51 { get { return B181; } }
+        public double H52 { get { return E175; } }
+        public double H53 { get { return H174; } }
+        public double H62 { get { return B880; } }
+
+        public double C71 { get { return B572; } }
+        public double C72 { get { return B3 == Position.Horizontal ? B571 : Double.NaN; } } //"N/A"
+        public double C73 { get { return B190; } }
+        public FlowPattern C74 { get { return B176; } }
+        public double C75 { get { return B186; } }
+        public double C76 { get { return B837; } }
+        public double C77 { get { return B211; } }
+        public double C78 { get { return B214; } }
+        public double C79 { get { return B454; } }
+        public double C80 { get { return J441; } }
+        public double C82 { get { return B474; } }
+        public double C83 { get { return B476; } }
+        public double C84 { get { return B481; } }
+        public double C85 { get { return L441; } }
+        public double C86 { get { return M441; } }
+        public double C87 { get { return B533; } }
+        public double C88 { get { return B537; } }
+        public double C89 { get { return T442; } }
+        public double C90 { get { return T441; } }
+        public double C91 { get { return C537; } }
+        public double C92 { get { return Z231 == GeneralClassification.None ? 0 : Z442; } }
+
+        public FlowPattern B176 { get { return FlowPattern.Slug; } } //HLookUp "Inlet flow pattern"!D43
+        public double B186 { get { return B169 * Math.Pow(B185, 2); } }
+        public double B211 { get { return B210 * B209 / (1 + B210); } }
+        public double B214 { get { return B213 * 42; } }
+        public double B454
+        {
+            get
+            {
+
+                return Math.Min(1,
+                (A108 == 1 ? (B453 > 800 ? 0.1 : (1 - 0.0012323 * B453) / (1 - 0.00109 * B453 + 0.00000022685 * Math.Pow(B453, 2)))
+                : (A108 == 2 ? (B453 > 1100 ? 0.1 : (1 - 0.0008757 * B453) / (1 - 0.0007705 * B453 + 0.0000000703 * Math.Pow(B453, 2)))
+                : (A108 == 3 ? (B453 > 1800 ? 0.1 : (1 - 0.0005276 * B453) / (1 - 0.00045404 * B453 - 0.00000002055 * Math.Pow(B453, 2)))
+                : (A108 == 4 ? (B453 > 9000 ? 0.1 : (1 - 0.00010422 * B453) / (1 - 0.00010216 * B453 + 0.0000000013243 * Math.Pow(B453, 2)))
+                : (B453 > 15000 ? 0.1 : (0.9841 - 0.000064214 * B453) / (1 - 0.000065651 * B453 + 0.0000000004124 * Math.Pow(B453, 2))))))));
+            }
+        }
+        public double B476 { get { return B475 / Math.Pow(((E33 - E20) / E20), 0.5); } }
+        public double B481
+        {
+            get  //Replaced 476 TO 480 Due missing text in excel.
+            {
+                _b481 = _b481 ?? (B3 == Position.Vertical ?
+                    (B480 == SettlingLaw.Stokes ? 304800 * Math.Pow((B475 * 18 * E25 / (1488 * 32.2 * (E33 - E20))), 0.5)
+                    : (B480 == SettlingLaw.Intermediate ? 304800 * Math.Pow((B475 * Math.Pow(E20, 0.29) * Math.Pow(E25, 0.43) / (3.54 * Math.Pow(32.2, 0.71) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14))
+                    : 304800 * (Math.Pow((B475 / 1.74), 2)) * E20 / (32.2 * (E33 - E20))))
+                    : (B480 == SettlingLaw.Stokes ? 304800 * Math.Pow((B478 * 18 * E25 / (1488 * 32.2 * (E33 - E20))), 0.5)
+                    : (B480 == SettlingLaw.Intermediate ? 304800 * Math.Pow((B478 * Math.Pow(E20, 0.29) * Math.Pow(E25, 0.43) / (3.54 * Math.Pow(32.2, 0.71) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14))
+                    : 304800 * (Math.Pow((B478 / 1.74), 2)) * E20 / (32.2 * (E33 - E20)))));
+                return _b481.Value;
+            }
+        }
+        public double B533
+        {
+            get
+            {
+                return B514 == GeneralClassification.None ? Double.NaN : B532 * E9 / 1440 / B529;
+            }
+        } //N/A
+        public double B537 { get { return B514 == GeneralClassification.None ? Double.NaN : B531 / Math.Pow(((E33 - E20) / E20), 0.5); } } //N/A
+        public double C537 { get { return C514 == GeneralClassification.None ? Double.NaN : C531 / Math.Pow(((E33 - E20) / E20), 0.5); } } //N/A
+        private double? _j441;
+        public double J441
+        {
+            get
+            {
+                _j441 = _j441 ?? GetJ441Value();
+                return _j441.Value;
+            }
+        }
+        private double? _m441;
+        public double M441
+        {
+            get
+            {
+                _m441 = _m441 ?? GetM441Value();
+                return _m441.Value;
+            }
+        }
+        private double? _q441;
+        public double Q441
+        {
+            get
+            {
+                _q441 = _q441 ?? GetQ441Value();
+                return _q441.Value;
+            }
+        }
+        private double? _t441;
+        public double T441
+        {
+            get
+            {
+                _t441 = _t441 ?? GetT441Value();
+                return _t441.Value;
+            }
+        }
+        public double L441 { get { return (J441 - M441) / J441; } }
+        public double T442 { get { return M441 == 0 ? 0 : (M441 - T441) / M441; } }
+        public GeneralClassification Z231 { get { return C514; } }
+        public double Z442 { get { return T441 == 0 ? 0 : (T441 - Z441) / T441; } }
+
+        public double E9 { get { return (B13 * 1000000 - B12 * E29) * 0.000001; } }
+        public double E25 { get { return E22 * Math.Exp(E23 * Math.Pow((E20 / 62.43), E24)); } }
+        public double B185 { get { return B168 / (0.7854 * Math.Pow((B184 / 12), 2)); } }
+        public double B210 { get { return 0.00000009 * ((B184 / 12 * Math.Pow(B188, 3) * Math.Pow((E33 * E20), 0.5)) / E41) * Math.Pow((Math.Pow(E20, (1 - B205)) * Math.Pow((E25 / 1488), B205) / (Math.Pow(B202, (1 + B205)) * 32.17 * E33)), (1 / (2 - B205))); } }
+        public double B209 { get { return 1 - B208 / (E32 * E33); } }
+        public double B213 { get { return B212 * 86400 / 5.615 / B13; } }
+        public double B453 { get { return B186; } }
+        public double B478 { get { return B482 / B477; } }
+        private SettlingLaw? _b480;
+        public SettlingLaw B480
+        {
+            get
+            {
+                _b480 = _b480 ?? (B479 < B891 ? SettlingLaw.Stokes : (B479 < B892 ? SettlingLaw.Intermediate : (B479 < B893 ? SettlingLaw.Newtons : SettlingLaw.OutOfRange)));
+                return _b480.Value;
+            }
+        }
+        public double B531 { get { return B530; } }
+        public double B532 { get { return B514 == GeneralClassification.None ? Double.NaN : M441; } } //N/A
+        public double C531 { get { return C530; } }
+
+        public double C530 { get { return C514 == GeneralClassification.None ? Double.NaN : B460 * B523 / C529; } } //N/A
+        public double B202 { get { return Math.Pow(((0.0091 * (0.001 * E40 * 2.2) * B184 / 12) / (E20 * (Math.Pow(B188, 2)))), 0.5); } }
+        public double B205 { get { return B204 == SettlingLaw.Stokes ? 1 : (B204 == SettlingLaw.Intermediate ? 0.6 : (B204 == SettlingLaw.Newtons ? 0 : -1)); } } /*"Out of Range"*/
+        public double B208 { get { return 0.25 * (E39 / 1488) * 3.1416 * B184 / 12 * B207; } }
+        public double B212 { get { return B211 * E32; } }
+        public double B477 { get { return H8 / B475; } }
+        private double? _b479;
+        public double B479
+        {
+            get
+            {
+                _b479 = _b479 ?? (B3 == Position.Vertical ?
+                    304800 * Math.Pow((B475 * (Math.Pow(E20, 0.29)) * (Math.Pow(E25, 0.43)) / (3.54 * (Math.Pow(32.2, 0.71)) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14))
+                    : 304800 * Math.Pow((B478 * (Math.Pow(E20, 0.29)) * (Math.Pow(E25, 0.43)) / (3.54 * (Math.Pow(32.2, 0.71)) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14)));
+                return _b479.Value;
+            }
+        }
+        public double B482 { get { return H7 - B877; } }
+        public double B530 { get { return B514 == GeneralClassification.None ? Double.NaN : (C514 == GeneralClassification.None ? B460 * B523 / B529 : C530); } } //N/A
+        public double B891 { get { return 0.025 * 304800 * Math.Pow((Math.Pow(E25, 2) / (32.2 * E20 * (E33 - E20))), 0.333); } }
+        public double B892 { get { return 0.334 * 304800 * Math.Pow((Math.Pow(E25, 2) / (32.2 * E20 * (E33 - E20))), 0.333); } }
+        public double B893 { get { return 18.13 * 304800 * Math.Pow((Math.Pow(E25, 2) / (32.2 * E20 * (E33 - E20))), 0.333); } }
+        public double E22 { get { return 0.0001 * (((7.77 + 0.0063 * E10) * Math.Pow((B16 + 460), 1.5)) / (122.4 + 12.9 * E10 + (B16 + 460))); } }
+        public double E23 { get { return (2.57 + 1914.5 / (B16 + 460) + 0.0095 * E10); } }
+        public double E24 { get { return 1.1 + 0.04 * E23; } }
+
+        public SettlingLaw B204 { get { return B203 < B891 ? SettlingLaw.Stokes : (B203 < B892 ? SettlingLaw.Intermediate : (B203 < B893 ? SettlingLaw.Newtons : SettlingLaw.OutOfRange)); } }
+        public double B207 { get { return 7.3 * Math.Pow((Math.Log10(B206)), 3) + 44.2 * Math.Pow((Math.Log10(B206)), 2) - 263 * Math.Log10(B206) + 439; } }
+
+        public double B203 { get { return B202 * 0.3048 * 1000000; } }
+        public double B206 { get { return (E39 / E25) * Math.Pow((E20 / E33), 0.5); } }
+
+        #endregion
+
+
+        private double? _q447 { get; set; }
+        private double? _c536 { get; set; }
+        private double? _c531 { get; set; }
+
+        private double? _x235 { get; set; }
+        private double? _x237 { get; set; }
+        private double? _x236 { get; set; }
+        private double? _x446 { get; set; }
+        private double? _x447 { get; set; }
+
+        public double Q447
+        {
+            get
+            {
+                return B539;
+            }
+        }
+        public double C536
+        {
+            get
+            {
+                return (C514 == GeneralClassification.Cyclone ? C531 / G155 : Double.NaN);
+            }
+        }
+        public double X235
+        {
+            get
+            {
+                return X233 * X234;
+            }
+        }
+        public double B539
+        {
+            get
+            {
+                return (B514 == GeneralClassification.None ? Double.NaN : (B538 <= 1.03 ? 0 : Math.Min(1 / (0.933708 + 2477.923 * Math.Pow(B538, -35.9901)), 1)));
+            }
+        }
+        public double X233
+        {
+            get
+            {
+                return X232 * R233;
+            }
+        }
+        public double X234
+        {
+            get
+            {
+                return B219;
+            }
+        }
+        public double X232
+        {
+            get
+            {
+                return ((X446 <= 1 || Double.IsNaN(X446)) ? 1 : W232);
+            }
+        }
+        public double X446
+        {
+            get
+            {
+                return C538;
+            }
+        }
+        public double W232 { get; set; }
+        public double C538
+        {
+            get
+            {
+                return (C514 == GeneralClassification.None ? Double.NaN : C537 / C535);
+            }
+        }
+        public double C535
+        {
+            get
+            {
+                return (C514 == GeneralClassification.None ? Double.NaN : C525 * C534);
+            }
+        }
+        public double C534
+        {
+            get
+            {
+                return (C514 == GeneralClassification.None ? Double.NaN : Math.Min(1, (C514 == GeneralClassification.Mesh ? 1 - M131 * (C533 - J131) : (C514 == GeneralClassification.Vane ? 1 - L143 * (C533 - I143) : (C514 == GeneralClassification.Cyclone ? 1 - N155 * (C533 - K155) : Double.NaN)))));
+            }
+        }
+        public double C533
+        {
+            get
+            {
+                return (C514 == GeneralClassification.None ? Double.NaN : C532 * E9 / 1440 / C529);
+            }
+        }
+        public double C532
+        {
+            get
+            {
+                return (C514 == GeneralClassification.None ? Double.NaN : T441);
+            }
+        }
+        private double? _w441 { get; set; }
+        public double W441
+        {
+            get
+            {
+                _w441 = _w441 ?? GetW441Value();
+                return _w441.Value;
+            }
+        }
+        public double X237
+        {
+            get
+            {
+                return B222;
+            }
+        }
+        public double X236
+        {
+            get
+            {
+                return (X235 - X233) / X233;
+            }
+        }
+        public double X447
+        {
+            get
+            {
+                return C539;
+            }
+        }
+        public double C539
+        {
+            get
+            {
+                return (C514 == GeneralClassification.None ? Double.NaN : Math.Min(1 / (0.933708 + 2477.923 * Math.Pow(C538, -35.9901)), 1));
+            }
+        }
+
+        /// <summary>
+        /// Create a new Separator sizing with default inputs
+        /// </summary>
         public SeparatorSizing()
         {
             B57 = 489;
@@ -4862,7 +5198,6 @@ namespace SolverSDK
             B590 = 1;
             B594 = 5;
 
-            #region Returned by Amir
             B23 = 5;
             B26 = 2.65;
             B30 = 60;
@@ -4872,345 +5207,492 @@ namespace SolverSDK
             B61 = 30;
             B71 = 2;
             B72 = 0.20;
-            #endregion
             B222 = 0.72;
             B219 = 5;
             S232 = 2;
             W232 = 2;
 
-            //GetZ441Value();
-
-            D113 = D114 = D115 = 12.4;
+            D113 = 12.4;
+            D114 = 12.4;
+            D115 = 12.4;
         }
 
-        #region Amir
+        /// <summary>
+        /// Create a new Separator sizing based on the previous values
+        /// </summary>
+        public SeparatorSizing(SeparatorSizing baseline)
+        {
+            B57 = baseline.B57;
+            B58 = baseline.B58;
+            H7 = baseline.H7;
+            B56 = baseline.B56;
+            B54 = baseline.B54;
+            B55 = baseline.B55;
+            B3 = baseline.B3;
+            H8 = baseline.H8;
+            B514 = baseline.B514;
+            C514 = baseline.C514;
+            B18 = baseline.B18;
+            H9 = baseline.H9;
+            A108 = baseline.A108;
+            B113 = baseline.B113;
+            B114 = baseline.B114;
+            B115 = baseline.B115;
+            B50 = baseline.B50;
+            B15 = baseline.B15;
+            H171 = baseline.H171;
+            B21 = baseline.B21;
+            B20 = baseline.B20;
+            B29 = baseline.B29;
+            B16 = baseline.B16;
+            C114 = baseline.C114;
+            E171 = baseline.E171;
+            C113 = baseline.C113;
+            B8 = baseline.B8;
+            B11 = baseline.B11;
+            B7 = baseline.B7;
+            B48 = baseline.B48;
+            B173 = baseline.B173;
+            A119 = baseline.A119;
+            B14 = baseline.B14;
+            A97 = baseline.A97;
 
-        public double B23 { get; set; }
-        public double B26 { get; set; }
-        public double B30 { get; set; }
-        public double B31 { get; set; }
-        public double B59 { get; set; }
-        public double B60 { get; set; }
-        public double B61 { get; set; }
-        public double B71 { get; set; }
-        public double B72 { get; set; }
+            #region Nozzle Weights
+            K165 = baseline.K165;
+            L165 = baseline.L165;
+            L166 = baseline.L166;
+            L167 = baseline.L167;
+            L168 = baseline.L168;
+            L169 = baseline.L169;
+            L170 = baseline.L170;
+            L171 = baseline.L171;
+            L172 = baseline.L172;
+            L173 = baseline.L173;
+            L174 = baseline.L174;
+            L175 = baseline.L175;
+            L176 = baseline.L176;
+            L177 = baseline.L177;
+            L178 = baseline.L178;
+            L179 = baseline.L179;
+            L180 = baseline.L180;
+            M165 = baseline.M165;
+            M166 = baseline.M166;
+            M167 = baseline.M167;
+            M168 = baseline.M168;
+            M169 = baseline.M169;
+            M170 = baseline.M170;
+            M171 = baseline.M171;
+            M172 = baseline.M172;
+            M173 = baseline.M173;
+            M174 = baseline.M174;
+            M175 = baseline.M175;
+            M176 = baseline.M176;
+            M177 = baseline.M177;
+            M178 = baseline.M178;
+            M179 = baseline.M179;
+            M180 = baseline.M180;
+            O165 = baseline.O165;
+            O166 = baseline.O166;
+            O167 = baseline.O167;
+            O168 = baseline.O168;
+            O169 = baseline.O169;
+            O170 = baseline.O170;
+            O171 = baseline.O171;
+            O172 = baseline.O172;
+            O173 = baseline.O173;
+            O174 = baseline.O174;
+            O175 = baseline.O175;
+            O176 = baseline.O176;
+            O177 = baseline.O177;
+            O178 = baseline.O178;
+            O179 = baseline.O179;
+            O180 = baseline.O180;
+            P165 = baseline.P165;
+            P166 = baseline.P166;
+            P167 = baseline.P167;
+            P168 = baseline.P168;
+            P169 = baseline.P169;
+            P170 = baseline.P170;
+            P171 = baseline.P171;
+            P172 = baseline.P172;
+            P173 = baseline.P173;
+            P174 = baseline.P174;
+            P175 = baseline.P175;
+            P176 = baseline.P176;
+            P177 = baseline.P177;
+            P178 = baseline.P178;
+            P179 = baseline.P179;
+            P180 = baseline.P180;
+            Q165 = baseline.Q165;
+            Q166 = baseline.Q166;
+            Q167 = baseline.Q167;
+            Q168 = baseline.Q168;
+            Q169 = baseline.Q169;
+            Q170 = baseline.Q170;
+            Q171 = baseline.Q171;
+            Q172 = baseline.Q172;
+            Q173 = baseline.Q173;
+            Q174 = baseline.Q174;
+            Q175 = baseline.Q175;
+            Q176 = baseline.Q176;
+            Q177 = baseline.Q177;
+            Q178 = baseline.Q178;
+            Q179 = baseline.Q179;
+            Q180 = baseline.Q180;
+            R165 = baseline.R165;
+            R166 = baseline.R166;
+            R167 = baseline.R167;
+            R168 = baseline.R168;
+            R169 = baseline.R169;
+            R170 = baseline.R170;
+            R171 = baseline.R171;
+            R172 = baseline.R172;
+            R173 = baseline.R173;
+            R174 = baseline.R174;
+            R175 = baseline.R175;
+            R176 = baseline.R176;
+            R177 = baseline.R177;
+            R178 = baseline.R178;
+            R179 = baseline.R179;
+            R180 = baseline.R180;
+            S165 = baseline.S165;
+            S166 = baseline.S166;
+            S167 = baseline.S167;
+            S168 = baseline.S168;
+            S169 = baseline.S169;
+            S170 = baseline.S170;
+            S171 = baseline.S171;
+            S172 = baseline.S172;
+            S173 = baseline.S173;
+            S174 = baseline.S174;
+            S175 = baseline.S175;
+            S176 = baseline.S176;
+            S177 = baseline.S177;
+            S178 = baseline.S178;
+            S179 = baseline.S179;
+            S180 = baseline.S180;
+            #endregion
 
-        public double D113 { get; set; }
-        public double D114 { get; set; }
-        public double D115 { get; set; }
+            #region Inlet Device
+            A101 = baseline.A101;
+            A102 = baseline.A102;
+            A103 = baseline.A103;
+            A104 = baseline.A104;
+            A105 = baseline.A105;
+            B101 = baseline.B101;
+            B102 = baseline.B102;
+            B103 = baseline.B103;
+            B104 = baseline.B104;
+            B105 = baseline.B105;
+            C101 = baseline.C101;
+            C102 = baseline.C102;
+            C103 = baseline.C103;
+            C104 = baseline.C104;
+            C105 = baseline.C105;
+            E101 = baseline.E101;
+            E102 = baseline.E102;
+            E103 = baseline.E103;
+            E104 = baseline.E104;
+            E105 = baseline.E105;
+            F101 = baseline.F101;
+            F102 = baseline.F102;
+            F103 = baseline.F103;
+            F104 = baseline.F104;
+            F105 = baseline.F105;
+            G101 = baseline.G101;
+            G102 = baseline.G102;
+            G103 = baseline.G103;
+            G104 = baseline.G104;
+            G105 = baseline.G105;
+            H101 = baseline.H101;
+            H102 = baseline.H102;
+            H103 = baseline.H103;
+            H104 = baseline.H104;
+            H105 = baseline.H105;
+            I101 = baseline.I101;
+            I102 = baseline.I102;
+            I103 = baseline.I103;
+            I104 = baseline.I104;
+            I105 = baseline.I105;
+            #endregion
 
-        public double B75 { get { return B174; } }
-        public double B76 { get { return B837; } }
-        public double B88 { get { return B525; } }
-        public double B91 { get { return C525; } }
+            #region Mesh Pads
+            A123 = baseline.A123;
+            A124 = baseline.A124;
+            A125 = baseline.A125;
+            A126 = baseline.A126;
+            A127 = baseline.A127;
+            B123 = baseline.B123;
+            B124 = baseline.B124;
+            B125 = baseline.B125;
+            B126 = baseline.B126;
+            B127 = baseline.B127;
+            C123 = baseline.C123;
+            C124 = baseline.C124;
+            C125 = baseline.C125;
+            C126 = baseline.C126;
+            C127 = baseline.C127;
+            D123 = baseline.D123;
+            D124 = baseline.D124;
+            D125 = baseline.D125;
+            D126 = baseline.D126;
+            D127 = baseline.D127;
+            E123 = baseline.E123;
+            E124 = baseline.E124;
+            E125 = baseline.E125;
+            E126 = baseline.E126;
+            E127 = baseline.E127;
+            F123 = baseline.F123;
+            F124 = baseline.F124;
+            F125 = baseline.F125;
+            F126 = baseline.F126;
+            F127 = baseline.F127;
+            G123 = baseline.G123;
+            G124 = baseline.G124;
+            G125 = baseline.G125;
+            G126 = baseline.G126;
+            G127 = baseline.G127;
+            H123 = baseline.H123;
+            H124 = baseline.H124;
+            H125 = baseline.H125;
+            H126 = baseline.H126;
+            H127 = baseline.H127;
+            I123 = baseline.I123;
+            J123 = baseline.J123;
+            J124 = baseline.J124;
+            J125 = baseline.J125;
+            J126 = baseline.J126;
+            J127 = baseline.J127;
+            K123 = baseline.K123;
+            K124 = baseline.K124;
+            K125 = baseline.K125;
+            K126 = baseline.K126;
+            K127 = baseline.K127;
+            L123 = baseline.L123;
+            M123 = baseline.M123;
+            N123 = baseline.N123;
+            N124 = baseline.N124;
+            N125 = baseline.N125;
+            N126 = baseline.N126;
+            N127 = baseline.N127;
+            O123 = baseline.O123;
+            #endregion
 
-        public double H14 { get { return H7; } }
-        public double H24 { get { return B59 * B57 * (3.1416 * H16 * H17 * H19 / 12 + 2 * B58 * B60 * H20 / 12 * Math.Pow(H16, 2)) + B61 * (B456 + B473 + B569 + B541 + C541) + B59 * (B194 + E182 + H180); } }
-        public double H36 { get { return C88 - B88; } }
-        public double H40 { get { return C71 - B71; } }
-        public double H41 { get { return B3 == Position.Horizontal ? C72 - B72 : -99; } }
-        public double H51 { get { return B181; } }
-        public double H52 { get { return E175; } }
-        public double H53 { get { return H174; } }
-        public double H62 { get { return B880; } }
+            A131 = baseline.A131; 
 
-        public double C71 { get { return B572; } }
-        public double C72 { get { return B3 == Position.Horizontal ? B571 : Double.NaN; } } //"N/A"
-        public double C73 { get { return B190; } }
-        public FlowPattern C74 { get { return B176; } }
-        public double C75 { get { return B186; } }
-        public double C76 { get { return B837; } }
-        public double C77 { get { return B211; } }
-        public double C78 { get { return B214; } }
-        public double C79 { get { return B454; } }
-        public double C80 { get { return J441; } }
-        public double C82 { get { return B474; } }
-        public double C83 { get { return B476; } }
-        public double C84 { get { return B481; } }
-        public double C85 { get { return L441; } }
-        public double C86 { get { return M441; } }
-        public double C87 { get { return B533; } }
-        public double C88 { get { return B537; } }
-        public double C89 { get { return T442; } }
-        public double C90 { get { return T441; } }
-        public double C91 { get { return C537; } }
-        public double C92 { get { return Z231 == GeneralClassification.None ? 0 : Z442; } }
+            #region Vane Packs
+            A136 = baseline.A136;
+            A137 = baseline.A137;
+            A138 = baseline.A138;
+            A139 = baseline.A139;
+            B136 = baseline.B136;
+            B137 = baseline.B137;
+            B138 = baseline.B138;
+            B139 = baseline.B139;
+            C136 = baseline.C136;
+            C137 = baseline.C137;
+            C138 = baseline.C138;
+            C139 = baseline.C139;
+            D136 = baseline.D136;
+            D137 = baseline.D137;
+            D138 = baseline.D138;
+            D139 = baseline.D139;
+            E136 = baseline.E136;
+            E137 = baseline.E137;
+            E138 = baseline.E138;
+            E139 = baseline.E139;
+            F136 = baseline.F136;
+            F137 = baseline.F137;
+            F138 = baseline.F138;
+            F139 = baseline.F139;
+            G136 = baseline.G136;
+            G137 = baseline.G137;
+            G138 = baseline.G138;
+            G139 = baseline.G139;
+            H136 = baseline.H136;
+            I136 = baseline.I136;
+            I137 = baseline.I137;
+            I138 = baseline.I138;
+            I139 = baseline.I139;
+            J136 = baseline.J136;
+            J137 = baseline.J137;
+            J138 = baseline.J138;
+            J139 = baseline.J139;
+            K136 = baseline.K136;
+            K137 = baseline.K137;
+            K138 = baseline.K138;
+            K139 = baseline.K139;
+            L136 = baseline.L136;
+            L137 = baseline.L137;
+            L138 = baseline.L138;
+            L139 = baseline.L139;
+            M136 = baseline.M136;
+            M137 = baseline.M137;
+            M138 = baseline.M138;
+            M139 = baseline.M139;
+            N136 = baseline.N136;
+            #endregion
 
-        public FlowPattern B176 { get { return FlowPattern.Slug; } } //HLookUp "Inlet flow pattern"!D43
-        public double B186 { get { return B169 * Math.Pow(B185, 2); } }
-        public double B211 { get { return B210 * B209 / (1 + B210); } }
-        public double B214 { get { return B213 * 42; } }
-        public double B454
-        {
-            get
-            {
+            A143 = baseline.A143;
 
-                return Math.Min(1,
-                (A108 == 1 ? (B453 > 800 ? 0.1 : (1 - 0.0012323 * B453) / (1 - 0.00109 * B453 + 0.00000022685 * Math.Pow(B453, 2)))
-                : (A108 == 2 ? (B453 > 1100 ? 0.1 : (1 - 0.0008757 * B453) / (1 - 0.0007705 * B453 + 0.0000000703 * Math.Pow(B453, 2)))
-                : (A108 == 3 ? (B453 > 1800 ? 0.1 : (1 - 0.0005276 * B453) / (1 - 0.00045404 * B453 - 0.00000002055 * Math.Pow(B453, 2)))
-                : (A108 == 4 ? (B453 > 9000 ? 0.1 : (1 - 0.00010422 * B453) / (1 - 0.00010216 * B453 + 0.0000000013243 * Math.Pow(B453, 2)))
-                : (B453 > 15000 ? 0.1 : (0.9841 - 0.000064214 * B453) / (1 - 0.000065651 * B453 + 0.0000000004124 * Math.Pow(B453, 2))))))));
-            }
-        }
-        public double B476 { get { return B475 / Math.Pow(((E33 - E20) / E20), 0.5); } }
-        public double B481
-        {
-            get  //Replaced 476 TO 480 Due missing text in excel.
-            {
-                _b481 = _b481 ?? (B3 == Position.Vertical ?
-                    (B480 == SettlingLaw.Stokes ? 304800 * Math.Pow((B475 * 18 * E25 / (1488 * 32.2 * (E33 - E20))), 0.5)
-                    : (B480 == SettlingLaw.Intermediate ? 304800 * Math.Pow((B475 * Math.Pow(E20, 0.29) * Math.Pow(E25, 0.43) / (3.54 * Math.Pow(32.2, 0.71) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14))
-                    : 304800 * (Math.Pow((B475 / 1.74), 2)) * E20 / (32.2 * (E33 - E20))))
-                    : (B480 == SettlingLaw.Stokes ? 304800 * Math.Pow((B478 * 18 * E25 / (1488 * 32.2 * (E33 - E20))), 0.5)
-                    : (B480 == SettlingLaw.Intermediate ? 304800 * Math.Pow((B478 * Math.Pow(E20, 0.29) * Math.Pow(E25, 0.43) / (3.54 * Math.Pow(32.2, 0.71) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14))
-                    : 304800 * (Math.Pow((B478 / 1.74), 2)) * E20 / (32.2 * (E33 - E20)))));
-                return _b481.Value;
-            }
-        }
-        public double B533
-        {
-            get
-            {
-                return B514 == GeneralClassification.None ? Double.NaN : B532 * E9 / 1440 / B529;
-            }
-        } //N/A
-        public double B537 { get { return B514 == GeneralClassification.None ? Double.NaN : B531 / Math.Pow(((E33 - E20) / E20), 0.5); } } //N/A
-        public double C537 { get { return C514 == GeneralClassification.None ? Double.NaN : C531 / Math.Pow(((E33 - E20) / E20), 0.5); } } //N/A
-        private double? _j441;
-        public double J441
-        {
-            get
-            {
-                _j441 = _j441 ?? GetJ441Value();
-                return _j441.Value;
-            }
-        }
-        private double? _m441;
-        public double M441
-        {
-            get
-            {
-                _m441 = _m441 ?? GetM441Value();
-                return _m441.Value;
-            }
-        }
-        private double? _q441;
-        public double Q441
-        {
-            get
-            {
-                _q441 = _q441 ?? GetQ441Value();
-                return _q441.Value;
-            }
-        }
-        private double? _t441;
-        public double T441
-        {
-            get
-            {
-                _t441 = _t441 ?? GetT441Value();
-                return _t441.Value;
-            }
-        }
-        public double L441 { get { return (J441 - M441) / J441; } }
-        public double T442 { get { return M441 == 0 ? 0 : (M441 - T441) / M441; } }
-        public GeneralClassification Z231 { get { return C514; } }
-        public double Z442 { get { return T441 == 0 ? 0 : (T441 - Z441) / T441; } }
+            #region Demisting Cyclones
+            A149 = baseline.A149;
+            A150 = baseline.A150;
+            A151 = baseline.A151;
+            B149 = baseline.B149;
+            B150 = baseline.B150;
+            B151 = baseline.B151;
+            C149 = baseline.C149;
+            C150 = baseline.C150;
+            C151 = baseline.C151;
+            D149 = baseline.D149;
+            D150 = baseline.D150;
+            D151 = baseline.D151;
+            E149 = baseline.E149;
+            E150 = baseline.E150;
+            E151 = baseline.E151;
+            F149 = baseline.F149;
+            G149 = baseline.G149;
+            H149 = baseline.H149;
+            H150 = baseline.H150;
+            H151 = baseline.H151;
+            I149 = baseline.I149;
+            I150 = baseline.I150;
+            I151 = baseline.I151;
+            J149 = baseline.J149;
+            J150 = baseline.J150;
+            J151 = baseline.J151;
+            K149 = baseline.K149;
+            K150 = baseline.K150;
+            K151 = baseline.K151;
+            L149 = baseline.L149;
+            L150 = baseline.L150;
+            L151 = baseline.L151;
+            M149 = baseline.M149;
+            M150 = baseline.M150;
+            M151 = baseline.M151;
+            N149 = baseline.N149;
+            N150 = baseline.N150;
+            N151 = baseline.N151;
+            O149 = baseline.O149;
+            O150 = baseline.O150;
+            O151 = baseline.O151;
+            #endregion
 
-        public double E9 { get { return (B13 * 1000000 - B12 * E29) * 0.000001; } }
-        public double E25 { get { return E22 * Math.Exp(E23 * Math.Pow((E20 / 62.43), E24)); } }
-        public double B185 { get { return B168 / (0.7854 * Math.Pow((B184 / 12), 2)); } }
-        public double B210 { get { return 0.00000009 * ((B184 / 12 * Math.Pow(B188, 3) * Math.Pow((E33 * E20), 0.5)) / E41) * Math.Pow((Math.Pow(E20, (1 - B205)) * Math.Pow((E25 / 1488), B205) / (Math.Pow(B202, (1 + B205)) * 32.17 * E33)), (1 / (2 - B205))); } }
-        public double B209 { get { return 1 - B208 / (E32 * E33); } }
-        public double B213 { get { return B212 * 86400 / 5.615 / B13; } }
-        public double B453 { get { return B186; } }
-        public double B478 { get { return B482 / B477; } }
-        private SettlingLaw? _b480;
-        public SettlingLaw B480
-        {
-            get
-            {
-                _b480 = _b480 ?? (B479 < B891 ? SettlingLaw.Stokes : (B479 < B892 ? SettlingLaw.Intermediate : (B479 < B893 ? SettlingLaw.Newtons : SettlingLaw.OutOfRange)));
-                return _b480.Value;
-            }
-        }
-        public double B531 { get { return B530; } }
-        public double B532 { get { return B514 == GeneralClassification.None ? Double.NaN : M441; } } //N/A
-        public double C531 { get { return C530; } }
+            A155 = baseline.A155;
 
-        public double C530 { get { return C514 == GeneralClassification.None ? Double.NaN : B460 * B523 / C529; } } //N/A
-        public double B202 { get { return Math.Pow(((0.0091 * (0.001 * E40 * 2.2) * B184 / 12) / (E20 * (Math.Pow(B188, 2)))), 0.5); } }
-        public double B205 { get { return B204 == SettlingLaw.Stokes ? 1 : (B204 == SettlingLaw.Intermediate ? 0.6 : (B204 == SettlingLaw.Newtons ? 0 : -1)); } } /*"Out of Range"*/
-        public double B208 { get { return 0.25 * (E39 / 1488) * 3.1416 * B184 / 12 * B207; } }
-        public double B212 { get { return B211 * E32; } }
-        public double B477 { get { return H8 / B475; } }
-        private double? _b479;
-        public double B479
-        {
-            get
-            {
-                _b479 = _b479 ?? (B3 == Position.Vertical ?
-                    304800 * Math.Pow((B475 * (Math.Pow(E20, 0.29)) * (Math.Pow(E25, 0.43)) / (3.54 * (Math.Pow(32.2, 0.71)) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14))
-                    : 304800 * Math.Pow((B478 * (Math.Pow(E20, 0.29)) * (Math.Pow(E25, 0.43)) / (3.54 * (Math.Pow(32.2, 0.71)) * Math.Pow((E33 - E20), 0.71))), (1 / 1.14)));
-                return _b479.Value;
-            }
-        }
-        public double B482 { get { return H7 - B877; } }
-        public double B530 { get { return B514 == GeneralClassification.None ? Double.NaN : (C514 == GeneralClassification.None ? B460 * B523 / B529 : C530); } } //N/A
-        public double B891 { get { return 0.025 * 304800 * Math.Pow((Math.Pow(E25, 2) / (32.2 * E20 * (E33 - E20))), 0.333); } }
-        public double B892 { get { return 0.334 * 304800 * Math.Pow((Math.Pow(E25, 2) / (32.2 * E20 * (E33 - E20))), 0.333); } }
-        public double B893 { get { return 18.13 * 304800 * Math.Pow((Math.Pow(E25, 2) / (32.2 * E20 * (E33 - E20))), 0.333); } }
-        public double E22 { get { return 0.0001 * (((7.77 + 0.0063 * E10) * Math.Pow((B16 + 460), 1.5)) / (122.4 + 12.9 * E10 + (B16 + 460))); } }
-        public double E23 { get { return (2.57 + 1914.5 / (B16 + 460) + 0.0095 * E10); } }
-        public double E24 { get { return 1.1 + 0.04 * E23; } }
+            //Contraints
+            B35 = baseline.B35;
+            B36 = baseline.B36;
+            B37 = baseline.B37;
+            B68 = baseline.B68;
+            B70 = baseline.B70;
+            B69 = baseline.B69;
+            C115 = baseline.C115;
+            B597 = baseline.B597;
+            B590 = baseline.B590;
+            B594 = baseline.B594;
 
-        public SettlingLaw B204 { get { return B203 < B891 ? SettlingLaw.Stokes : (B203 < B892 ? SettlingLaw.Intermediate : (B203 < B893 ? SettlingLaw.Newtons : SettlingLaw.OutOfRange)); } }
-        public double B207 { get { return 7.3 * Math.Pow((Math.Log10(B206)), 3) + 44.2 * Math.Pow((Math.Log10(B206)), 2) - 263 * Math.Log10(B206) + 439; } }
+            B23 = baseline.B23;
+            B26 = baseline.B26;
+            B30 = baseline.B30;
+            B31 = baseline.B31;
+            B59 = baseline.B59;
+            B60 = baseline.B60;
+            B61 = baseline.B61;
+            B71 = baseline.B71;
+            B72 = baseline.B72;
+            B222 = baseline.B222;
+            B219 = baseline.B219;
+            S232 = baseline.S232;
+            W232 = baseline.W232;
 
-        public double B203 { get { return B202 * 0.3048 * 1000000; } }
-        public double B206 { get { return (E39 / E25) * Math.Pow((E20 / E33), 0.5); } }
+            D113 = baseline.D113;
+            D114 = baseline.D114;
+            D115 = baseline.D115;
+        }
 
-        #endregion
+        /// <summary>
+        /// Solve the model using FrontLine Solver
+        /// </summary>
+        public static SeparatorSizing Solve(SeparatorSizing model)
+        {
+            SeparatorSizing result = new SeparatorSizing();
 
+            //Prepare the Solver Vars and Constraints
+            double[] ub_cons = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+            double[] lb_cons = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-        private double? _q447 { get; set; }
-        private double? _c536 { get; set; }
-        private double? _c531 { get; set; }
+            double[] ub = { 20, 80 };
+            double[] lb = { 2, 1.5 };
 
-        private double? _x235 { get; set; }
-        private double? _x237 { get; set; }
-        private double? _x236 { get; set; }
-        private double? _x446 { get; set; }
-        private double? _x447 { get; set; }
+            using (Problem prob = new Problem(Solver_Type.Minimize, 2, 21))
+            {
+                prob.FcnConstraint.UpperBound.Array = ub_cons;
+                prob.FcnConstraint.LowerBound.Array = ub_cons;
 
-        public double Q447
-        {
-            get
-            {
-                return B539;
-            }
-        }
-        public double C536
-        {
-            get
-            {
-                return (C514 == GeneralClassification.Cyclone ? C531 / G155 : Double.NaN);
-            }
-        }
-        public double X235
-        {
-            get
-            {
-                return X233 * X234;
-            }
-        }
-        public double B539
-        {
-            get
-            {
-                return (B514 == GeneralClassification.None ? Double.NaN : (B538 <= 1.03 ? 0 : Math.Min(1 / (0.933708 + 2477.923 * Math.Pow(B538, -35.9901)), 1)));
-            }
-        }
-        public double X233
-        {
-            get
-            {
-                return X232 * R233;
-            }
-        }
-        public double X234
-        {
-            get
-            {
-                return B219;
-            }
-        }
-        public double X232
-        {
-            get
-            {
-                return ((X446 <= 1 || Double.IsNaN(X446)) ? 1 : W232);
-            }
-        }
-        public double X446
-        {
-            get
-            {
-                return C538;
-            }
-        }
-        public double W232 { get; set; }
-        public double C538
-        {
-            get
-            {
-                return (C514 == GeneralClassification.None ? Double.NaN : C537 / C535);
-            }
-        }
-        public double C535
-        {
-            get
-            {
-                return (C514 == GeneralClassification.None ? Double.NaN : C525 * C534);
-            }
-        }
-        public double C534
-        {
-            get
-            {
-                return (C514 == GeneralClassification.None ? Double.NaN : Math.Min(1, (C514 == GeneralClassification.Mesh ? 1 - M131 * (C533 - J131) : (C514 == GeneralClassification.Vane ? 1 - L143 * (C533 - I143) : (C514 == GeneralClassification.Cyclone ? 1 - N155 * (C533 - K155) : Double.NaN)))));
-            }
-        }
-        public double C533
-        {
-            get
-            {
-                return (C514 == GeneralClassification.None ? Double.NaN : C532 * E9 / 1440 / C529);
-            }
-        }
-        public double C532
-        {
-            get
-            {
-                return (C514 == GeneralClassification.None ? Double.NaN : T441);
-            }
-        }
-        private double? _w441 { get; set; }
-        public double W441
-        {
-            get
-            {
-                _w441 = _w441 ?? GetW441Value();
-                return _w441.Value;
-            }
-        }
-        public double X237
-        {
-            get
-            {
-                return B222;
-            }
-        }
-        public double X236
-        {
-            get
-            {
-                return (X235 - X233) / X233;
-            }
-        }
-        public double X447
-        {
-            get
-            {
-                return C539;
-            }
-        }
-        public double C539
-        {
-            get
-            {
-                return (C514 == GeneralClassification.None ? Double.NaN : Math.Min(1 / (0.933708 + 2477.923 * Math.Pow(C538, -35.9901)), 1));
+                prob.VarDecision.NonNegative();
+                prob.VarDecision.UpperBound.Array = ub;
+                prob.VarDecision.LowerBound.Array = lb;
+
+                prob.ProblemType = Problem_Type.OptNSP;
+                prob.Engine = prob.Engines[Engine.EVOName];
+                prob.Engine.Params["Convergence"].Value = 0.00001;
+                prob.Engine.Params["MutationRate"].Value = 0.9;
+                prob.Engine.Params["PopulationSize"].Value = 180;
+                prob.Engine.Params["RandomSeed"].Value = 0;
+                prob.Engine.Params["MaxTimeNoImp"].Value = 45;
+                prob.Engine.Params["RequireBounds"].Value = 1;
+
+                prob.Engine.Params["Precision"].Value = 0.00001;
+                prob.Engine.Params["Scaling"].Value = 1;
+                prob.Engine.Params["SolveWithout"].Value = 1;
+                prob.Engine.Params["MaxTime"].Value = 120;
+                prob.Engine.Params["Iterations"].Value = 200;
+                prob.Engine.Params["MaxSubProblems"].Value = 1000;
+                prob.Engine.Params["MaxFeasibleSols"].Value = 1000;
+
+                prob.Evaluators[Eval_Type.Function].OnEvaluate += (e) =>
+                {
+                    var localModel = model;
+                    var h7 = e.Problem.VarDecision.Value[0];
+                    var h8 = e.Problem.VarDecision.Value[1];
+
+                    var sepSize = new SeparatorSizing(localModel);
+                    sepSize.H7 = h7;
+                    sepSize.H8 = h8;
+
+                    e.Problem.FcnConstraint.Value[0] = sepSize.K73 >= sepSize.B48 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[1] = sepSize.I74 >= sepSize.B49 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[2] = sepSize.K72 >= sepSize.B50 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[3] = sepSize.I73 >= sepSize.B47 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[4] = sepSize.H9 >= 0 && sepSize.H9 <= 1.5 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[5] = sepSize.I72 >= sepSize.B49 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[6] = sepSize.K74 >= sepSize.B50 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[7] = sepSize.H31 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[8] = sepSize.H42 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[9] = sepSize.H43 >= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[10] = sepSize.H44 >= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[11] = sepSize.H39 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[12] = sepSize.H38 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[13] = sepSize.H37 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[14] = sepSize.H35 >= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[15] = sepSize.H34 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[16] = sepSize.H32 >= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[17] = sepSize.H33 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[18] = sepSize.H29 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[19] = sepSize.H28 <= 0 ? 1 : 0;
+                    e.Problem.FcnConstraint.Value[20] = sepSize.H30 >= 0 ? 1 : 0;
+
+                    e.Problem.FcnObjective.Value[e.Problem.ObjectiveIndex] = sepSize.H21;
+                    result = sepSize;
+
+                    return Engine_Action.Continue;
+                };
+
+                prob.Solver.Optimize();
+
+                return result;
             }
         }
     }
