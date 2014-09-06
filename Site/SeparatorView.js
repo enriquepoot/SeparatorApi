@@ -1330,6 +1330,7 @@ if (!window.JSON) {
 
             m.B514 = filterFloat($("#B514").val());
             m.C514 = filterFloat($("#C514").val());
+            m.RunSolver = true;
 
 			return JSON.stringify(m);
 		}

@@ -20,6 +20,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configura
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolverSdk", "SolSdk\SolverSdk.csproj", "{ABFA12B9-E196-4B70-962C-AA9106315786}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Site", "Site", "{F708C4E1-38D5-4FFA-8FDE-5AF061A9BB1E}"
+	ProjectSection(SolutionItems) = preProject
+		Site\Json = Site\Json
+		Site\Participants - PetroSkills   Petroleum Courses & Training.htm = Site\Participants - PetroSkills   Petroleum Courses & Training.htm
+		Site\SeparatorController.js = Site\SeparatorController.js
+		Site\SeparatorInput.js = Site\SeparatorInput.js
+		Site\SeparatorResponse.js = Site\SeparatorResponse.js
+		Site\SeparatorSizing.css = Site\SeparatorSizing.css
+		Site\SeparatorView.js = Site\SeparatorView.js
+		Site\test.html = Site\test.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

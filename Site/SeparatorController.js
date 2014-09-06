@@ -23,7 +23,7 @@
 		}
 		,_GetData: function () {
 			var self = this;
-			$.get("http://separatorsizing.cloudapp.net/Api/Separator", 
+			$.get("http://separatorsizing.cloudapp.net/Api/Separator",
 				function (data) {
 					self.inData = $.extend(new PS.SeparatorInput(), data);
 					self.sView._BindGet(self.inData);
@@ -34,14 +34,21 @@
 			e.preventDefault();
 			var self = c;
 			$("html, body").scrollTop(0);
-			self.ToogleClass([ "waitDiv","getDiv"], "hide");
-			$.post("http://separatorsizing.cloudapp.net/Api/Separator"
-				, self._PrepareData()
-				, function (resp) {
-					self.reData = $.extend(new PS.SeparatorResponse(), resp);
-					self._BindPost(self.reData);
-					self.ToogleClass(["postDiv", "waitDiv"], "hide");
-				});
+			self.ToogleClass(["waitDiv", "getDiv"], "hide");
+			$.ajax({
+			    type: 'POST',
+			    url: 'http://separatorsizing.cloudapp.net/Api/Separator',
+			    data: self._PrepareData(),
+			    contentType: "application/json; charset=utf-8",
+			    dataType: 'json',
+			    success: function (responseData, textStatus, jqXHR) {
+			        self.reData = $.extend(new PS.SeparatorResponse(), responseData);
+			        self._BindPost(self.reData);
+			        self.ToogleClass(["postDiv", "waitDiv"], "hide");
+			    },
+			    error: function (responseData, textStatus, errorThrown) {
+			    }
+			});
 		}
 	};
 })(window.PS = window.PS || {}, jQuery);
