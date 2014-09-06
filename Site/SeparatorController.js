@@ -27,7 +27,7 @@
 				function (data) {
 					self.inData = $.extend(new PS.SeparatorInput(), data);
 					self.sView._BindGet(self.inData);
-					//self.sView.ToogleClass(["getDiv", "waitDiv"], "hide");
+					self.sView.ToogleClass(["getDiv", "waitDiv"], "hide");
 			});	
 		}
 		,_PostData: function (e, c) {
