@@ -10,7 +10,7 @@ body .reset {
 body .reset input,
 body .reset select,
 body .reset button  {
-	border-color: #969696!important;
+	border-color: #C7C7C7!important;
 }
 
 body .reset tr th {
@@ -69,6 +69,10 @@ body .reset div img.waitImage{
 .full{
 	width: 100%!important;
 }
+.miniSpace{
+	margin-bottom: 10px!important;
+	border-bottom: 1px dashed #C7C7C7!important;
+}
 .spaceBot{
 	margin-bottom: 15px!important;
 }
@@ -80,8 +84,8 @@ body .reset div img.waitImage{
 }
 .container{
 	padding: 20px!important;
-	border: 1px #dcdcdc solid!important;
-	background-color: #ececec!important;
+	border: 1px #C7C7C7 solid!important;
+	background-color: #F8F8F8!important;
     border-radius: 0.5em !important;
     -webkit-radius: 0.5em !important;
 }
@@ -107,6 +111,14 @@ body .reset div img.waitImage{
 	padding-right: 2%!important;
 }
 
+.inputCombo {
+	width: 49%!important;
+	display: inline-block!important;
+	vertical-align: middle!important;
+	text-align: right!important;
+	padding-right: 2%!important;
+}
+
 .tableLabel{
 	display: inline-block!important;
 	vertical-align: middle!important;
@@ -125,13 +137,26 @@ body .reset div img.waitImage{
 }
 .spanResp{
 	display: inline-block!important;
-	width: 50%!important;	
+	width: 70%!important;	
 }
 .contResp{
 	display: inline-block!important;
-	width: 50%!important;
+	width: 30%!important;
+	text-align: right!important;
+	font-weight: bold!important;
+	color: #0D2C46!important;
+}
+.spanRespHalf{
+	display: inline-block!important;
+	width: 50%!important;	
 }
 .contRespThird{
 	display: inline-block!important;
 	width: 25%!important;
+	text-align: right!important;
+	font-weight: bold!important;
+	color: #0D2C46!important;	
+}
+.noBorder{
+	border: 0!important;
 }
