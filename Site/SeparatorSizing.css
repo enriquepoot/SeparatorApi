@@ -1,0 +1,137 @@
+body .reset {
+    font-family: Arial!important;
+}
+.reset div, .reset table {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;    
+}
+body .reset input,
+body .reset select,
+body .reset button  {
+	border-color: #969696!important;
+}
+
+body .reset tr th {
+	color: #0D2C46!important;
+	vertical-align: middle!important;
+	text-align: center!important;
+	border: 1px solid #bebebe!important;
+	background-color: #dedede!important;
+}
+
+body .reset tr td {
+	vertical-align: middle!important;
+	text-align: center!important;
+	border: 1px solid #bebebe!important;
+}
+
+body .reset tr th.noBorder{
+	border: 0!important;
+	background: none!important;
+}
+
+body .reset tr td.noBorder {
+	vertical-align: middle!important;
+	border: 0!important;
+}
+
+body .reset button  {
+	color: #0D2C46!important;
+	font-family: Arial!important;
+}
+body .reset div img.waitImage{
+   display:block!important;
+   margin:auto!important;
+}
+.hide{
+	display: none!important;
+}
+.left{
+	float: left!important;
+}
+.right{
+	float: right!important;
+}
+.clear{
+	clear: both!important;
+}
+.tenth{
+	width: 12%!important;
+}
+.third{
+	width: 33%!important;
+}
+.half{
+	width: 49%!important;
+}
+.full{
+	width: 100%!important;
+}
+.spaceBot{
+	margin-bottom: 15px!important;
+}
+.spaceTop{
+	margin-top: 15px!important;
+}
+.nity{
+	font-size: 95%!important;
+}
+.container{
+	padding: 20px!important;
+	border: 1px #dcdcdc solid!important;
+	background-color: #ececec!important;
+    border-radius: 0.5em !important;
+    -webkit-radius: 0.5em !important;
+}
+
+.inputContainer {
+	width: 100%!important;
+	margin-bottom: 5px!important;
+}
+
+.inputLabel{
+	width: 49%!important;
+	display: inline-block!important;
+	vertical-align: middle!important;
+	text-align: left!important;
+	margin-right: 5px!important;
+}
+
+.inputBox {
+	width: 47%!important;
+	display: inline-block!important;
+	vertical-align: middle!important;
+	text-align: right!important;
+	padding-right: 2%!important;
+}
+
+.tableLabel{
+	display: inline-block!important;
+	vertical-align: middle!important;
+	text-align: left!important;
+	margin-right: 5px!important;
+}
+.tableSpanEnd{
+	font-weight: bold!important;
+	display: block!important;
+	color: #0D2C46;
+}
+.header{
+	font-size: 1.5rem!important;
+	text-transform: none!important;
+	margin-bottom: 1rem!important;
+}
+.spanResp{
+	display: inline-block!important;
+	width: 50%!important;	
+}
+.contResp{
+	display: inline-block!important;
+	width: 50%!important;
+}
+.contRespThird{
+	display: inline-block!important;
+	width: 25%!important;
+}

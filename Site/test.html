@@ -1,0 +1,22 @@
+<HTML>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./SeparatorSizing.css" />
+</head>
+<body>
+<div id="Container"></div>
+<script src="./SeparatorInput.js"></script>
+<script src="./SeparatorResponse.js"></script>
+<script src="./SeparatorController.js"></script>
+<script src="./SeparatorView.js"></script>
+<script type="text/javascript">
+  var spCtrl;
+  $(document).ready(function () {
+    $("#Container").html( '' );
+    $("#Container").addClass('reset');
+    spCtrl = new PS.SeparatorController("#Container");
+    spCtrl.Render();
+  });
+</script>
+</body>
+</HTML>

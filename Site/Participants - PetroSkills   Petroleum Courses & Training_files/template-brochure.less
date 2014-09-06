@@ -1,0 +1,797 @@
+@bwidth: 95rem;
+@bpadding: 3rem;
+@subwidth: @bwidth - ( @bpadding * 2 );
+
+#brochure-template{
+
+    section.body{
+
+        .block{
+
+            .header-content{
+                background-position: center bottom;
+                background-repeat: no-repeat;
+                width: @bwidth;
+
+                > header{
+                    font-family: "franklin-gothic-urw-cond";
+                    font-weight: bold;
+                    width: @bwidth;
+
+                    h1{
+                        color: #003663;
+                        font-size: 3.5rem;
+                        margin-top: 1rem;
+                        padding: 1.9rem @bpadding;
+                        text-align: left;
+                        text-transform: uppercase;
+                        width: @bwidth - ( @bpadding * 2 );
+                    }
+
+                    h2{
+                        color: #777777;
+                        float: left;
+                        font-size: 1.8rem;
+                        line-height: 2.4rem;
+                        padding-left: @bpadding;
+                        padding-bottom: 2rem;
+                        text-align: left;
+                        text-transform: uppercase;
+                        width: ( @bwidth - ( @bpadding * 3 ) ) / 2;
+                    }
+                }                
+
+                .content{
+                    color: #646464;
+                    float: left;
+                    font-family: "pragmatica-web";
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    line-height: 2.1rem;
+                    padding-left: @bpadding;
+                    padding-bottom: 18rem;
+                    width: ( @bwidth - ( @bpadding * 3 ) ) / 2;
+                    button {
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 1.8rem;
+                        margin-left: 5rem;
+                        margin-top: 4.5rem;
+                        padding: 0.2rem 2.5rem 0.25rem;
+                        text-shadow: 0.2rem 0.2rem 0.1rem #003C66;
+                    }
+                }
+            }
+            
+            .copy-block {
+                @copyBlockPadding: 3rem;
+                width: @bwidth - ( @copyBlockPadding * 2 );
+                padding: @copyBlockPadding;
+                font-family: "pragmatica-web";
+              
+                header {
+                    h1 {
+                        color: #333333;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        margin-bottom: 2rem;
+                        width: 89rem;
+                    }
+                }
+                
+                .quote {
+                    background: none repeat scroll 0 0 #CCCCCC;
+                    color: #333333;
+                    float: right;
+                    font-size: 1.9rem;
+                    font-weight: 400;
+                    line-height: 3.8rem;
+                    margin-left: 2rem;
+                    padding: 2rem;
+                    text-align: center;
+                    width: 40rem;
+                }
+                
+                > p {
+                    color: #646464;
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    line-height: 2.1rem;
+                }
+            }
+
+            .right-side-image {
+                background: #ccc;
+                padding: 0 3rem;
+                width: 89rem;
+
+                .wrapper {
+                    padding-right: 0.8rem;
+                    width: 52.2rem;
+                    float: left;
+
+                    header {
+                        h1 {
+                            margin: 3.5rem 0 0.5rem;
+                            font-family: "franklin-gothic-urw-cond";
+                            font-size: 2.1rem;
+                            line-height: 4.2rem;
+                            font-weight: 700;
+                        }
+                    }
+
+                    p {
+                        // background: transparent !important;
+                        margin-bottom: 2.5rem;
+                        font-family: "pragmatica-web";
+                        font-size: 1.4rem;
+                        line-height: 2.1rem;
+                        font-weight: 400;
+                    }
+                }
+
+                .image{
+                    float: left;
+                    overflow: hidden;
+                    width: 36rem;
+                }
+            }
+
+            .generic-content{
+                padding:3.5rem;
+
+                h1, h2, h3, h4, h5, h6{
+                    color: #003663;
+                    font-family: "franklin-gothic-urw-cond";
+                    text-transform: uppercase;
+                }
+
+                h1{
+                    font-size: 4rem;
+                    margin-bottom: 2rem;
+                }
+                h2{
+                    font-size: 2.7rem;
+                    margin-bottom: 1.5rem;
+                }
+                h3{
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                }
+                h4{
+                    font-size: 2.3rem;
+                    margin-bottom: 0.5rem;
+                }
+                h5{
+                    font-size: 2rem;
+                }
+                h6{
+                    font-size: 1.5rem;
+                }
+                p{
+                    color: #646464;
+                    font-family: "pragmatica-web";
+                    font-size: 1.4rem;
+                    line-height: 2.1rem;
+                    margin-bottom: 2rem;
+                }
+                ul{
+                    li{
+                        line-height: 4rem;
+                        color: #646464;
+                    }
+                }
+                ul.error, ul.errors{
+                  //    background-image: url(shared/warning-icon.png);
+                  //    background-position: left center;
+                  //    background-repeat: no-repeat;
+                  //    margin-bottom: 2rem;
+                  //    min-height: 4rem;
+                  padding-left: 4.5rem;
+                  padding-top: 2rem;
+                  li{
+                    font-family: "pragmatica-web";
+                    color: #DD3333;
+                    line-height: 2rem;
+                    //        color: #A74552;
+                    //        list-style-type: none;
+                  }
+                }
+            }
+            
+            .accordian-list {
+                width: @bwidth;
+                margin: 3rem;
+                
+                header {
+                    width: @subwidth;
+                    h1 {
+                        color: #464646;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        margin-bottom: 1rem;
+                    }
+                }
+                
+                .list-item {
+                    border-top: solid 0.1rem #aaa;
+                    padding: 2rem 0;
+                    width: @subwidth;
+                    .accordian {
+                        section.image {
+                            float: left;
+                            margin-right: 1rem;
+                            > img {
+                                width: 19.5rem;
+                                height: 15.2rem;
+                            }
+                        }
+                        .text {
+                            color: #333333;
+                            font-family: "pragmatica-web";
+                            font-size: 1.4rem;
+                            height: 12rem;
+                            line-height: 2rem;
+                            padding: 0 1rem;
+                            width: 87rem;
+                            p {
+                                margin-bottom: 1rem;
+                            }
+                            h1, h2, h3, h4, h5, h6 {
+                                color: #878787;
+                                font-family: "franklin-gothic-urw-cond";
+                                font-size: 1.4rem;
+                                line-height: 1.8rem;
+                                margin-bottom: 1rem;
+                                text-transform: uppercase;
+                            }
+                        }
+                        .accordianButton {
+                            background: none repeat scroll 0 0 #00AEEF;
+                            border: medium none;
+                            border-radius: 0 0 0 0;
+                            color: #000033;
+                            font-size: 1.1rem;
+                            height: 2rem;
+                            padding: 0 0.5rem;
+                        }
+                        .accordianContent {
+                            padding-top: 2rem;
+                            display: none;
+                            clear: left;
+                            color: #333333;
+                            font-family: "pragmatica-web";
+                            font-size: 1.4rem;
+                            line-height: 2rem;
+                        }
+                    }
+                }
+            }
+            
+            .image-list{
+                
+                header {
+                    h1 {
+                        color: #464646;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        margin: 3.5rem 3.5rem 0.5rem;
+                        text-align: center;
+                    }
+                    h2 {
+                        margin: 0;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 1.7rem;
+                        color:#888;
+                        text-align: center;
+                        margin: 0 3.5rem 3.5rem;
+                    }
+                }
+
+                .list{
+                    @imgListPadding: 3rem;
+                    padding: 0 @imgListPadding;
+                    width: @bwidth - (@imgListPadding * 2);
+                    
+                    .block-wrapper {
+                        
+                        tbody {
+                      
+                            .wrapper {
+                                
+                                .image {
+                                    margin: 0.5rem 0;
+                                    vertical-align: middle; 
+                                    img {
+                                        width: 20rem;
+                                        height: 14rem;
+                                    }
+                                }
+                                
+                                .content {
+                                    color: #646464;
+                                    font-family: "pragmatica-web";
+                                    font-size: 1.8rem;
+                                    font-weight: 400;
+                                    line-height: 1.9rem;
+                                    padding: 0 3rem;
+                                    vertical-align: middle;
+                                    width: 62.6rem;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                footer {
+                    
+                    section {
+                        color: #646464;
+                        font-size: 1.8rem;
+                        font-weight: 700;
+                        margin: 0 3rem;
+                        padding-bottom: 3rem;
+                        text-align: center;
+                    }
+                }
+                
+                .button-edit {
+                    margin-left: 3rem;
+                }
+            }
+
+            article.three-column {
+                background: #fff;
+                padding: 0 2.1rem;
+                width: 90.8rem;
+
+                > header {
+                    margin: 0 1rem 1rem;
+                    width: 100%;
+                    height: 10rem;
+                    text-align: center;
+                    float: left;
+                    h1 {
+                        color: #464646;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        margin-bottom: 0.5rem;
+                        margin-top: 3rem;
+                        text-transform: uppercase; 
+                    }
+                    h2 {
+                        color: #646464;
+                        font-family: "pragmatica-web";
+                        font-size: 1.8rem;
+                        font-weight: 400;
+                    }
+                }
+
+                section.column {
+                    font-family: "pragmatica-web";
+                    background: #e8e9ea no-repeat left bottom;
+                    box-shadow: 0 0 2rem #888 inset;
+                    margin: 0 1.5rem 2rem;
+                    width: 27.2rem;
+                    height: 43.6rem;
+                    position: relative;
+                    float: left;
+
+                    section.content {
+                        padding: 1rem;
+                        line-height: 1.7rem;
+                        h1 {
+                            margin-bottom: 0.5rem;
+                            font-size: 1.3rem;
+                            line-height: 1.8rem;
+                            color: #000000;
+                            text-transform: uppercase;
+                        }
+                        h2, h3, h4, h5, h6 {
+                            margin-bottom: 0.5rem;
+                            font-size: 1.8rem;
+                            line-height: 2.7rem;
+                            color: #646464;
+                        }
+                        p {
+                            margin-bottom: 0.5rem;
+                            font-size: 1.4rem;
+                            line-height: 2.1rem;
+                            color: #646464;
+                        }
+                    }
+                }
+            }
+            
+            .two-column-tabbed {
+                padding: 3rem;
+                header {
+                    h1 {
+                        color: #464646;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 2.1rem;
+                        margin-bottom: 1.6rem;
+                    }
+                }
+                .wrapper {
+                    background: #E8E9EB;
+                    width: 100%;
+                    .column {
+                        float: left;
+                    }
+                    .tab-buttons {
+                        background: #fff;
+                        cursor: pointer;
+                        color: #666;
+                        width: 44.1rem;
+                        padding-right: 0.8rem;
+                        .tab {
+                            background-image: url(brochure/tab-arrow.png);
+                            background-repeat: no-repeat;
+                            border-bottom: 0.1rem solid #CCCCCC;
+                            color: #646464;
+                            font-family: "pragmatica-web";
+                            font-size: 1.4rem;
+                            line-height: 1.8rem;
+                            padding: 1.7rem 1.2rem 1.7rem 1.5rem;
+                            &:first-child {
+                                border-top: 0.1rem solid #CCC;
+                            }
+                            &:hover, &.selected {
+                                color: #000;
+                            }
+                        }
+                    }
+                    .tabs {
+                        padding: 2.1rem;
+                        width: 39.9rem;
+                        .tab {
+                            display: none;
+                            font-family: "pragmatica-web";
+                            font-size: 1.4rem;
+                            line-height: 1.8rem;
+                        }
+                    }
+                }
+            }
+            
+            .link-gallery {
+                background-color: #B7B7B7;
+                padding: 0;
+                width: @bwidth;
+                
+                
+                header {
+                    h1 {
+                        color: #FFFFFF;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 2.5rem;
+                        margin: 2.5rem 2.5rem 1.3rem;
+                    }
+                }
+                
+                .content {
+                    margin: 1.2rem 0;
+                    
+                    .image {
+                        float: left;
+                        margin: 0 1.46rem;
+                        a{
+                            display: block;
+                            width: 12.9rem;
+                            height: 12.9rem;
+                            overflow: hidden;
+                            box-shadow: 2px 2px 1px #888888;
+                        }
+                    }
+                    .edit-mode {
+                        height: 20rem;
+                        img {
+                            max-height: 12.9rem;
+                            max-width: 12.9rem;
+                        }
+                    }
+                }
+            }
+            
+            .accordian-long {
+                margin: 2rem 0;
+                
+                > header {
+                    padding: 0 @bpadding;
+                    width: @subwidth;
+                    
+                    h1 {
+                        color: #464646;
+                        float: left;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        padding: 1rem 1rem 1rem 0;
+                        width: 43.5rem;
+                    }
+                    aside {
+                        padding: 1rem 0 1rem 1rem;
+                        width: (@subwidth / 2) - 1rem;
+                        line-height: 2rem;
+                        float: left;
+                    }
+                }
+                
+                .wrapper {
+                    width: @subwidth;
+                    padding: 0 @bpadding;
+                    
+                    .accordian {
+                        @wpadding: 1.6rem;
+                        .accordianButton {
+                            background-image: url(brochure/accordian-plus.png);
+                            background-repeat: no-repeat;
+                            border-top: 0.1rem solid #CCC;
+                            box-shadow: 0 0.1rem 0.2rem;
+                            padding: 0.6rem @wpadding 0.5rem;
+                            width: @subwidth - (@wpadding * 2);
+                            cursor: pointer;
+                            & h2 {
+                                color: #333333;
+                                font-family: "franklin-gothic-urw-cond";
+                                font-size: 1.8rem;
+                            }
+                            &.selected {
+                                background-image: url(brochure/accordian-minus.png);
+                            }
+                        }
+                        .accordianContent {
+                            padding: 0.6rem @wpadding;
+                            width: @subwidth - (@wpadding * 2) - 0.4rem;
+                            border-left: 0.2rem solid #CCC;
+                            border-right: 0.2rem solid #CCC;
+                            border-bottom: 0.2rem solid #CCC;
+                            display: none;
+                            color: #646464;
+                            font-family: "pragmatica-web";
+                            font-size: 1.6rem;
+                            line-height: 2.4rem;
+                        }
+                    }
+                }
+            }
+            
+            .contact-snippet {
+                padding: 3rem @bpadding;
+                width: @subwidth;         
+                       
+                header {
+                    h1 {
+                        color: #464646;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        margin-bottom: 3rem;
+                        width: 89rem;
+                    }
+                }
+                
+                .copy {
+                    color: #646464;
+                    float: left;
+                    font-family: "pragmatica-web";
+                    font-size: 1.4rem;
+                    font-weight: 400;
+                    line-height: 2.1rem;
+                    padding-right: 1rem;
+                    width: 43.5rem;
+                }
+                
+                .form-wrapper {
+                    padding-right: 1rem;
+                    width: (@subwidth / 2) - 1rem;
+                    float: left;
+                }
+            }
+            
+            .squeeze-snippet {
+                background: linear-gradient( #FFD336, #FFFFFF ) #FFD336;
+                padding: 3rem @bpadding;
+                width: @subwidth;    
+                @epadding: 4rem;     
+                       
+                header {
+                    h1 {
+                        color: #003663;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        margin: auto;
+                        padding: 0 @epadding;
+                        text-align: center;
+                        text-transform: uppercase;
+                        width: @subwidth - (@epadding * 2);
+                    }
+                }
+                
+                .call-to-action {
+                    color: #033566;
+                    font-family: "pragmatica-web";
+                    font-size: 1.8rem;
+                    font-weight: 400;
+                    line-height: 2.1rem;
+                    margin: 0 auto 3rem;
+                    padding: 0 @epadding;
+                    text-align: center;
+                    width: @subwidth - (@epadding * 2);
+                }
+                
+                .form-wrapper {
+                    width: 35rem;
+                    margin: auto;
+                }
+            }
+            
+            .form-template{
+                margin-bottom: 3rem;
+                padding: 0 @bpadding;
+                width: @subwidth;
+                > header{
+                    h1{
+                        color: #464646;
+                        font-family: "franklin-gothic-urw-cond";
+                        font-size: 3.6rem;
+                        margin: 3rem 0 2rem;
+                    }
+                }
+                .user-instructions{
+                    color: #646464;
+                }
+                .form-snippet{
+                    margin: 3rem;
+                    width: 60rem;
+                }
+                .required{
+                    color: red;
+                }
+            }
+            
+            //General styles for blocks//
+            ul{
+                margin-left: 4rem;
+            }
+            a{
+                color: #333333;
+                &:hover, &.hover{
+                    color: #ddbc38;
+                }
+            }
+        }   
+    }
+}
+
+form.contact-form {
+    header {
+        color: #003663;
+        float: left;
+        font-family: "franklin-gothic-urw-cond";
+        font-size: 2.3rem;
+        margin-bottom: 2rem;
+        width: 100%;
+    }
+    
+    section {
+        float: left;
+        margin-bottom: 2rem;
+        width: 100%;
+        > label {
+            clear: both;
+            display: block;
+            float: left;
+            font-family: "pragmatica-web";
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-top: 0.3rem;
+            padding-right: 1%;
+            text-align: right;
+            white-space: nowrap;
+            width: 23%;
+        }
+    }
+    
+    > label {
+        clear: both;
+        display: block;
+        float: left;
+        font-family: "pragmatica-web";
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin-top: 0.3rem;
+        padding-right: 1%;
+        text-align: right;
+        white-space: nowrap;
+        width: 30%;
+    }
+    
+    input[type="text"], textarea, select {
+        border: 0.1rem solid #CCCCCC;
+        box-shadow: none;
+        float: left;
+        margin-bottom: 1rem;
+        width: 67%;
+    }
+    
+    input[type="checkbox"] {
+        margin-left: 15%;
+        margin-right: 1rem;
+        width: 1rem;
+    }
+    
+    .radio {
+        float: left;
+        font-family: "pragmatica-web";
+        p {
+            color: #646464;
+            margin-bottom: 0.5rem;
+        }
+        input[type="radio"] {
+            display: inline;
+            margin: 0 0 0 1rem;
+            width: auto;
+        }
+        label {
+            display: inline;
+        }
+    }
+    
+    textarea {
+        height: 25rem;
+    }
+
+    footer {
+        float: right;
+        width: 74%;
+        margin-left: 25%;
+        text-align: center;
+        button {
+            margin: 0 auto;
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+    }
+}
+
+form.squeeze-form {
+    label {
+        width: 8.8rem;
+        padding-right: 1rem;
+        font-weight: bold;
+        font-family: "pragmatica-web";
+        display: block;
+        text-align: right;
+        clear: both;
+        margin-top: 0.3rem;
+        float: left;
+    }
+    input {
+        border-color: #CCCCCC;
+        box-shadow: none;
+        width: 25rem;
+        margin-bottom: 1rem;
+        float: left;
+    }
+    footer {
+        float: right;
+        width: 35rem;
+        margin-left: 0;
+        text-align: center;
+        button {
+            margin: 3rem auto 0;
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+    }
+}
+
+.blockseperator{
+    
+    margin-left: auto;
+    margin-right: auto;
+    width: 98%;
+
+    &:after{
+        background-position: center center;
+    }
+}
