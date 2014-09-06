@@ -5617,8 +5617,6 @@ namespace SolverSdk
         /// </summary>
         public static SeparatorSizing Solve(SeparatorSizing model)
         {
-            SeparatorSizing result = new SeparatorSizing();
-
             //Prepare the Solver Vars and Constraints
             double[] ub_cons = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
             double[] lb_cons = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
@@ -5685,12 +5683,17 @@ namespace SolverSdk
                     e.Problem.FcnConstraint.Value[20] = sepSize.H30 >= 0 ? 1 : 0;
 
                     e.Problem.FcnObjective.Value[e.Problem.ObjectiveIndex] = sepSize.H21;
-                    result = sepSize;
 
                     return Engine_Action.Continue;
                 };
 
                 prob.Solver.Optimize();
+
+                var _h7 = prob.VarDecision.FinalValue[0];
+                var _h8 = prob.VarDecision.FinalValue[1];
+                SeparatorSizing result = new SeparatorSizing(model);
+                result.H7 = _h7;
+                result.H8 = _h8;
 
                 return result;
             }
