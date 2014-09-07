@@ -4521,6 +4521,11 @@ namespace SolverSdk
         public double H52 { get { return E175; } }
         public double H53 { get { return H174; } }
         public double H62 { get { return B880; } }
+        public double I59 { get { return B3 == Position.Vertical ? double.NaN : H59 / H59; } }
+        public double I61 { get { return B3 == Position.Vertical ? H61 / H17 : H61 / H59; } }
+        public double I62 { get { return B3 == Position.Vertical ? H62 / H17 : H62 / H59; } }
+        public double I63 { get { return B3 == Position.Vertical ? H63 / H17 : H63 / H59; } }
+        public double I64 { get { return B3 == Position.Vertical ? H64 / H17 : H64 / H59; } }
 
         public double C71 { get { return B572; } }
         public double C72 { get { return B3 == Position.Horizontal ? B571 : Double.NaN; } } //"N/A"

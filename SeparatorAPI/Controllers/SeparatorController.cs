@@ -325,6 +325,12 @@ namespace SeparatorAPI.Controllers
                 H62 = se.H62,
                 H63 = se.H63,
                 H64 = se.H64,
+                I59 = se.I59,
+                I60 = se.I60,
+                I61 = se.I61,
+                I62 = se.I62,
+                I63 = se.I63,
+                I64 = se.I64,
                 #endregion
                 #region Separator Performance
                 #region Design

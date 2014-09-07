@@ -56,6 +56,12 @@ namespace Business.Entities
         public double H62 { get; set; }
         public double H63 { get; set; }
         public double H64 { get; set; }
+        public double I59 { get; set; }
+        public double I60 { get; set; }
+        public double I61 { get; set; }
+        public double I62 { get; set; }
+        public double I63 { get; set; }
+        public double I64 { get; set; }
         #endregion
 
         #region Separator Performance

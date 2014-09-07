@@ -1136,7 +1136,7 @@ if (!window.JSON) {
 					,clss: "contRespThird"
 				},{
 					id:"I51"
-					,txt: "Slup"
+					,txt: "Slug"
 					,clss: "contRespThird"
 				}]			
 			},{
@@ -1197,7 +1197,7 @@ if (!window.JSON) {
 					,txt: "5"
 					,clss: "contRespThird"
 				},{
-					id:"H60"
+					id:"I60"
 					,txt: "70%"
 					,clss: "contRespThird"
 				}]				
@@ -1530,6 +1530,13 @@ if (!window.JSON) {
             $("#H62lbl").text(isNumber(model.H62) ? model.H62.toFixedDown(4) : model.H62);
             $("#H63lbl").text(isNumber(model.H63) ? model.H63.toFixedDown(4) : model.H63);
             $("#H64lbl").text(isNumber(model.H64) ? model.H64.toFixedDown(4) : model.H64);
+
+            $("#I59lbl").text(isNumber(model.I59) ? model.I59.toPercent() : model.I59);
+            $("#I60lbl").text(isNumber(model.I60) ? model.I60.toPercent() : model.I60);
+            $("#I61lbl").text(isNumber(model.I61) ? model.I61.toPercent() : model.I61);
+            $("#I62lbl").text(isNumber(model.I62) ? model.I62.toPercent() : model.I62);
+            $("#I63lbl").text(isNumber(model.I63) ? model.I63.toPercent() : model.I63);
+            $("#I64lbl").text(isNumber(model.I64) ? model.I64.toPercent() : model.I64);
 		}
 		,_Back: function (e, c) {
 			var self = c;
