@@ -21,11 +21,21 @@ namespace SeparatorAPI.Controllers
         public SeparatorResponse Post(SeparatorInput model)
         {
             var se = new SeparatorSizing();
-            UpdateSeparatorSizing(se, model);
-            //Todo Solve
-            if (model.RunSolver)
-                se = SeparatorSizing.Solve(se);
-            return GetSeparatorResponse(se);
+            var error = string.Empty;
+            try
+            {
+                UpdateSeparatorSizing(se, model);
+                //Todo Solve
+                if (model.RunSolver)
+                    se = SeparatorSizing.Solve(se);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+            }
+            var response = GetSeparatorResponse(se);
+            response.Error = error;
+            return response;
         }
 
         public void Options(SeparatorInput model)

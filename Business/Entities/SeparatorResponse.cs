@@ -99,5 +99,9 @@ namespace Business.Entities
         public double C92 { get; set; }
         #endregion
         #endregion
+
+        #region Extra Data
+        public string Error { get; set; }
+        #endregion
     }
 }
