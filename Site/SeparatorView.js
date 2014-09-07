@@ -4,6 +4,16 @@ String.prototype.replaceAll = function (search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+Number.prototype.toFixedDown = function(digits) {
+    var re = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+        m = this.toString().match(re);
+    return m ? parseFloat(m[1]) : this.valueOf();
+};
+
 if (!window.JSON) {
   window.JSON = {
     parse: function (sJSON) { return eval("(" + sJSON + ")"); },
@@ -92,7 +102,14 @@ if (!window.JSON) {
 			self.getDiv.append(divBHelper);
 
 			self.getDiv.append($(document.createElement("div")).attr({"class": "clear"}));
+
+			var divMinHelper = $(document.createElement("div")).attr({"class": "full"});
+			$('<label />', { 'for': 'RunSolver', text: 'Minimize Model', class: "right" }).appendTo(divMinHelper);
+		    $('<input />', { type: 'checkbox', id: 'RunSolver', value: 'MinimizeModel', class: "right", checked:"checked" }).appendTo(divMinHelper);
+		    self.getDiv.append(divMinHelper);
 			
+			self.getDiv.append($(document.createElement("div")).attr({"class": "clear"}));
+
 			var divBuHelper = $(document.createElement("div")).attr({"class": "full"});
 			divBuHelper.append(self.CreatePostButton().attr({"class": "right"}));
 			self.getDiv.append(divBuHelper);
@@ -108,7 +125,6 @@ if (!window.JSON) {
 			self.CreateNozzleResDiv();
 			self.CreateLevelResDiv();
 			self.CreateBackButton();
-
 
 			var divPLHelper = $(document.createElement("div")).attr({"class": "left half"});
 			divPLHelper.append(self.cvResDiv.attr({"class": "container spaceBot"}));
@@ -491,7 +507,7 @@ if (!window.JSON) {
 					,txt: "Design"
 					,clss: "contRespThird"
 				},{
-					id:"C68"
+					id:"C67"
 					,txt: "Actual"
 					,clss: "contRespThird"
 				}]				
@@ -1330,7 +1346,8 @@ if (!window.JSON) {
 
             m.B514 = filterFloat($("#B514").val());
             m.C514 = filterFloat($("#C514").val());
-            m.RunSolver = true;
+
+            m.RunSolver = $('#RunSolver').is(":checked")
 
 			return JSON.stringify(m);
 		}
@@ -1421,83 +1438,85 @@ if (!window.JSON) {
             $("#A155").val(model.A155).change();
             $("#B514").val(model.B514).change();
             $("#C514").val(model.C514).change();
+
+            $("#RunSolver").attr({"checked": model.RunSolver});
 		}
 		,_BindPost: function (model) {
-            $("#B68lbl").text(model.B68);
-            $("#B69lbl").text(model.B69);
-            $("#B70lbl").text(model.B70);
-            $("#B71lbl").text(model.B71);
-            $("#B72lbl").text(model.B72);
-            $("#B75lbl").text(model.B75);
-            $("#B76lbl").text(model.B76);
-            $("#B81lbl").text(model.B81);
-            $("#B88lbl").text(model.B88);
-            $("#B91lbl").text(model.B91);
+            $("#B68lbl").text(isNumber(model.B68) ? model.B68.toFixedDown(4) : model.B69);
+            $("#B69lbl").text(isNumber(model.B69) ? model.B69.toFixedDown(4) : model.B69);
+            $("#B70lbl").text(isNumber(model.B70) ? model.B70.toFixedDown(4) : model.B70);
+            $("#B71lbl").text(isNumber(model.B71) ? model.B71.toFixedDown(4) : model.B71);
+            $("#B72lbl").text(isNumber(model.B72) ? model.B72.toFixedDown(4) : model.B72);
+            $("#B75lbl").text(isNumber(model.B75) ? model.B75.toFixedDown(4) : model.B75);
+            $("#B76lbl").text(isNumber(model.B76) ? model.B76.toFixedDown(4) : model.B76);
+            $("#B81lbl").text(isNumber(model.B81) ? model.B81.toFixedDown(4) : model.B81);
+            $("#B88lbl").text(isNumber(model.B88) ? model.B88.toFixedDown(4) : model.B88);
+            $("#B91lbl").text(isNumber(model.B91) ? model.B91.toFixedDown(4) : model.B91);
             
-            $("#C68lbl").text(model.C68);
-            $("#C69lbl").text(model.C69);
-            $("#C70lbl").text(model.C70);
-            $("#C71lbl").text(model.C71);
-            $("#C72lbl").text(model.C72);
-            $("#C73lbl").text(model.C73);
-            $("#C74lbl").text(model.C74);
-            $("#C75lbl").text(model.C75);
-            $("#C76lbl").text(model.C76);
-            $("#C77lbl").text(model.C77);
-            $("#C78lbl").text(model.C78);
-            $("#C79lbl").text(model.C79);
-            $("#C80lbl").text(model.C80);
-            $("#C81lbl").text(model.C81);
-            $("#C82lbl").text(model.C82);
-            $("#C83lbl").text(model.C83);
-            $("#C84lbl").text(model.C84);
-            $("#C85lbl").text(model.C85);
-            $("#C86lbl").text(model.C86);
-            $("#C87lbl").text(model.C87);
-            $("#C88lbl").text(model.C88);
-            $("#C89lbl").text(model.C89);
-            $("#C90lbl").text(model.C90);
-            $("#C91lbl").text(model.C91);
-            $("#C92lbl").text(model.C92);
+            $("#C68lbl").text(isNumber(model.C68) ? model.C68.toFixedDown(4) : model.C68);
+            $("#C69lbl").text(isNumber(model.C69) ? model.C69.toFixedDown(4) : model.C69);
+            $("#C70lbl").text(isNumber(model.C70) ? model.C70.toFixedDown(4) : model.C70);
+            $("#C71lbl").text(isNumber(model.C71) ? model.C71.toFixedDown(4) : model.C71);
+            $("#C72lbl").text(isNumber(model.C72) ? model.C72.toFixedDown(4) : model.C72);
+            $("#C73lbl").text(isNumber(model.C73) ? model.C73.toFixedDown(4) : model.C73);
+            $("#C74lbl").text(isNumber(model.C74) ? model.C74.toFixedDown(4) : model.C74);
+            $("#C75lbl").text(isNumber(model.C75) ? model.C75.toFixedDown(4) : model.C75);
+            $("#C76lbl").text(isNumber(model.C76) ? model.C76.toFixedDown(4) : model.C76);
+            $("#C77lbl").text(isNumber(model.C77) ? model.C77.toFixedDown(4) : model.C77);
+            $("#C78lbl").text(isNumber(model.C78) ? model.C78.toFixedDown(4) : model.C78);
+            $("#C79lbl").text(isNumber(model.C79) ? model.C79.toFixedDown(4) : model.C79);
+            $("#C80lbl").text(isNumber(model.C80) ? model.C80.toFixedDown(4) : model.C80);
+            $("#C81lbl").text(isNumber(model.C81) ? model.C81.toFixedDown(4) : model.C81);
+            $("#C82lbl").text(isNumber(model.C82) ? model.C82.toFixedDown(4) : model.C82);
+            $("#C83lbl").text(isNumber(model.C83) ? model.C83.toFixedDown(4) : model.C83);
+            $("#C84lbl").text(isNumber(model.C84) ? model.C84.toFixedDown(4) : model.C84);
+            $("#C85lbl").text(isNumber(model.C85) ? model.C85.toFixedDown(4) : model.C85);
+            $("#C86lbl").text(isNumber(model.C86) ? model.C86.toFixedDown(4) : model.C86);
+            $("#C87lbl").text(isNumber(model.C87) ? model.C87.toFixedDown(4) : model.C87);
+            $("#C88lbl").text(isNumber(model.C88) ? model.C88.toFixedDown(4) : model.C88);
+            $("#C89lbl").text(isNumber(model.C89) ? model.C89.toFixedDown(4) : model.C89);
+            $("#C90lbl").text(isNumber(model.C90) ? model.C90.toFixedDown(4) : model.C90);
+            $("#C91lbl").text(isNumber(model.C91) ? model.C91.toFixedDown(4) : model.C91);
+            $("#C92lbl").text(isNumber(model.C92) ? model.C92.toFixedDown(4) : model.C92);
             
-            $("#H14lbl").text(model.H14);
-            $("#H15lbl").text(model.H15);
-            $("#H16lbl").text(model.H16);
-            $("#H17lbl").text(model.H17);
-            $("#H18lbl").text(model.H18);
-            $("#H19lbl").text(model.H19);
-            $("#H20lbl").text(model.H20);
-            $("#H21lbl").text(model.H21);
-            $("#H24lbl").text(model.H24);
-            
-            $("#H28lbl").text(model.H28);
-            $("#H29lbl").text(model.H29);
-            $("#H30lbl").text(model.H30);
-            $("#H31lbl").text(model.H31);
-            $("#H32lbl").text(model.H32);
-            $("#H33lbl").text(model.H33);
-            $("#H34lbl").text(model.H34);
-            $("#H35lbl").text(model.H35);
-            $("#H36lbl").text(model.H36);
-            $("#H37lbl").text(model.H37);
-            $("#H38lbl").text(model.H38);
-            $("#H39lbl").text(model.H39);
-            $("#H40lbl").text(model.H40);
-            $("#H41lbl").text(model.H41);
-            $("#H42lbl").text(model.H42);
-            $("#H43lbl").text(model.H43);
-            $("#H44lbl").text(model.H44);
-            
-            $("#H51lbl").text(model.H51);
-            $("#H52lbl").text(model.H52);
-            $("#H53lbl").text(model.H53);
-            
-            $("#H59lbl").text(model.H59);
-            $("#H60lbl").text(model.H60);
-            $("#H61lbl").text(model.H61);
-            $("#H62lbl").text(model.H62);
-            $("#H63lbl").text(model.H63);
-            $("#H64lbl").text(model.H64);
+            $("#H14lbl").text(isNumber(model.H14) ? model.H14.toFixedDown(4) : model.H14);
+            $("#H15lbl").text(isNumber(model.H15) ? model.H15.toFixedDown(4) : model.H15);
+            $("#H16lbl").text(isNumber(model.H16) ? model.H16.toFixedDown(4) : model.H16);
+            $("#H17lbl").text(isNumber(model.H17) ? model.H17.toFixedDown(4) : model.H17);
+            $("#H18lbl").text(isNumber(model.H18) ? model.H18.toFixedDown(4) : model.H18);
+            $("#H19lbl").text(isNumber(model.H19) ? model.H19.toFixedDown(4) : model.H19);
+            $("#H20lbl").text(isNumber(model.H20) ? model.H20.toFixedDown(4) : model.H20);
+            $("#H21lbl").text(isNumber(model.H21) ? model.H21.toFixedDown(4) : model.H21);
+            $("#H24lbl").text(isNumber(model.H24) ? model.H24.toFixedDown(4) : model.H24);
+
+            $("#H28lbl").text(isNumber(model.H28) ? model.H28.toFixedDown(4) : model.H28);
+            $("#H29lbl").text(isNumber(model.H29) ? model.H29.toFixedDown(4) : model.H29);
+            $("#H30lbl").text(isNumber(model.H30) ? model.H30.toFixedDown(4) : model.H30);
+            $("#H31lbl").text(isNumber(model.H31) ? model.H31.toFixedDown(4) : model.H31);
+            $("#H32lbl").text(isNumber(model.H32) ? model.H32.toFixedDown(4) : model.H32);
+            $("#H33lbl").text(isNumber(model.H33) ? model.H33.toFixedDown(4) : model.H33);
+            $("#H34lbl").text(isNumber(model.H34) ? model.H34.toFixedDown(4) : model.H34);
+            $("#H35lbl").text(isNumber(model.H35) ? model.H35.toFixedDown(4) : model.H35);
+            $("#H36lbl").text(isNumber(model.H36) ? model.H36.toFixedDown(4) : model.H36);
+            $("#H37lbl").text(isNumber(model.H37) ? model.H37.toFixedDown(4) : model.H37);
+            $("#H38lbl").text(isNumber(model.H38) ? model.H38.toFixedDown(4) : model.H38);
+            $("#H39lbl").text(isNumber(model.H39) ? model.H39.toFixedDown(4) : model.H39);
+            $("#H40lbl").text(isNumber(model.H40) ? model.H40.toFixedDown(4) : model.H40);
+            $("#H41lbl").text(isNumber(model.H41) ? model.H41.toFixedDown(4) : model.H41);
+            $("#H42lbl").text(isNumber(model.H42) ? model.H42.toFixedDown(4) : model.H42);
+            $("#H43lbl").text(isNumber(model.H43) ? model.H43.toFixedDown(4) : model.H43);
+            $("#H44lbl").text(isNumber(model.H44) ? model.H44.toFixedDown(4) : model.H44);
+
+            $("#H51lbl").text(isNumber(model.H51) ? model.H51.toFixedDown(4) : model.H51);
+            $("#H52lbl").text(isNumber(model.H52) ? model.H52.toFixedDown(4) : model.H52);
+            $("#H53lbl").text(isNumber(model.H53) ? model.H53.toFixedDown(4) : model.H53);
+
+            $("#H59lbl").text(isNumber(model.H59) ? model.H59.toFixedDown(4) : model.H59);
+            $("#H60lbl").text(isNumber(model.H60) ? model.H60.toFixedDown(4) : model.H60);
+            $("#H61lbl").text(isNumber(model.H61) ? model.H61.toFixedDown(4) : model.H61);
+            $("#H62lbl").text(isNumber(model.H62) ? model.H62.toFixedDown(4) : model.H62);
+            $("#H63lbl").text(isNumber(model.H63) ? model.H63.toFixedDown(4) : model.H63);
+            $("#H64lbl").text(isNumber(model.H64) ? model.H64.toFixedDown(4) : model.H64);
 		}
 		,_Back: function (e, c) {
 			var self = c;
