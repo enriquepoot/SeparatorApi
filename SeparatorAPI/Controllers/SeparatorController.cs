@@ -346,7 +346,7 @@ namespace SeparatorAPI.Controllers
                 C71 = se.C71,
                 C72 = se.C72,
                 C73 = se.C73,
-                C74 = (int)se.C74,
+                C74 = se.C74.ToString(),
                 C75 = se.C75,
                 C76 = se.C76,
                 C77 = se.C77,

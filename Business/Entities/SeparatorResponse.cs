@@ -78,7 +78,7 @@ namespace Business.Entities
         public double C71 { get; set; }
         public double C72 { get; set; }
         public double C73 { get; set; }
-        public int C74 { get; set; }
+        public string C74 { get; set; }
         public double C75 { get; set; }
         public double C76 { get; set; }
         public double C77 { get; set; }

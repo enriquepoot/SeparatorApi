@@ -1472,7 +1472,7 @@ if (!window.JSON) {
             $("#C71lbl").text(isNumber(model.C71) ? model.C71.toFixedDown(4) : model.C71);
             $("#C72lbl").text(isNumber(model.C72) ? model.C72.toFixedDown(4) : model.C72);
             $("#C73lbl").text(isNumber(model.C73) ? model.C73.toFixedDown(4) : model.C73);
-            $("#C74lbl").text(isNumber(model.C74) ? model.C74.toFixedDown(4) : model.C74);
+            $("#C74lbl").text(model.C74);
             $("#C75lbl").text(isNumber(model.C75) ? model.C75.toFixedDown(4) : model.C75);
             $("#C76lbl").text(isNumber(model.C76) ? model.C76.toFixedDown(4) : model.C76);
             $("#C77lbl").text(isNumber(model.C77) ? model.C77.toPercent() : model.C77);
