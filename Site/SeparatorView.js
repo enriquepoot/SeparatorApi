@@ -9,10 +9,23 @@ function isNumber(n) {
 }
 
 Number.prototype.toFixedDown = function(digits) {
+
+	var addSign = this < 0;
+
     var re = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
         m = this.toString().match(re);
-    return m ? parseFloat(m[1]) : this.valueOf();
+    var x =  m ? parseFloat(m[1]) : this.valueOf();
+   	var unsign = x.toString().replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+   return addSign ? '-'+ x : x;
 };
+
+function toCurrency(n, currency) {
+    return "$ " + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+}
+
+Number.prototype.toPercent = function() {
+    return (this * 100).toFixedDown(4) + "%";
+}
 
 if (!window.JSON) {
   window.JSON = {
@@ -1068,7 +1081,7 @@ if (!window.JSON) {
 				,txt: "Max HLSD/Di (horizontal)"
 				,clss: "spanResp"
 				,resp: [{
-					id:"G42"
+					id:"H42"
 					,txt: "-0.05"
 					,clss: "contResp"
 				}]				
@@ -1443,7 +1456,7 @@ if (!window.JSON) {
 		}
 		,_BindPost: function (model) {
             $("#B68lbl").text(isNumber(model.B68) ? model.B68.toFixedDown(4) : model.B69);
-            $("#B69lbl").text(isNumber(model.B69) ? model.B69.toFixedDown(4) : model.B69);
+            $("#B69lbl").text(isNumber(model.B69) ? model.B69.toPercent() : model.B69);
             $("#B70lbl").text(isNumber(model.B70) ? model.B70.toFixedDown(4) : model.B70);
             $("#B71lbl").text(isNumber(model.B71) ? model.B71.toFixedDown(4) : model.B71);
             $("#B72lbl").text(isNumber(model.B72) ? model.B72.toFixedDown(4) : model.B72);
@@ -1454,7 +1467,7 @@ if (!window.JSON) {
             $("#B91lbl").text(isNumber(model.B91) ? model.B91.toFixedDown(4) : model.B91);
             
             $("#C68lbl").text(isNumber(model.C68) ? model.C68.toFixedDown(4) : model.C68);
-            $("#C69lbl").text(isNumber(model.C69) ? model.C69.toFixedDown(4) : model.C69);
+            $("#C69lbl").text(isNumber(model.C69) ? model.C69.toPercent() : model.C69);
             $("#C70lbl").text(isNumber(model.C70) ? model.C70.toFixedDown(4) : model.C70);
             $("#C71lbl").text(isNumber(model.C71) ? model.C71.toFixedDown(4) : model.C71);
             $("#C72lbl").text(isNumber(model.C72) ? model.C72.toFixedDown(4) : model.C72);
@@ -1462,19 +1475,19 @@ if (!window.JSON) {
             $("#C74lbl").text(isNumber(model.C74) ? model.C74.toFixedDown(4) : model.C74);
             $("#C75lbl").text(isNumber(model.C75) ? model.C75.toFixedDown(4) : model.C75);
             $("#C76lbl").text(isNumber(model.C76) ? model.C76.toFixedDown(4) : model.C76);
-            $("#C77lbl").text(isNumber(model.C77) ? model.C77.toFixedDown(4) : model.C77);
+            $("#C77lbl").text(isNumber(model.C77) ? model.C77.toPercent() : model.C77);
             $("#C78lbl").text(isNumber(model.C78) ? model.C78.toFixedDown(4) : model.C78);
-            $("#C79lbl").text(isNumber(model.C79) ? model.C79.toFixedDown(4) : model.C79);
+            $("#C79lbl").text(isNumber(model.C79) ? model.C79.toPercent() : model.C79);
             $("#C80lbl").text(isNumber(model.C80) ? model.C80.toFixedDown(4) : model.C80);
             $("#C81lbl").text(isNumber(model.C81) ? model.C81.toFixedDown(4) : model.C81);
             $("#C82lbl").text(isNumber(model.C82) ? model.C82.toFixedDown(4) : model.C82);
             $("#C83lbl").text(isNumber(model.C83) ? model.C83.toFixedDown(4) : model.C83);
             $("#C84lbl").text(isNumber(model.C84) ? model.C84.toFixedDown(4) : model.C84);
-            $("#C85lbl").text(isNumber(model.C85) ? model.C85.toFixedDown(4) : model.C85);
+            $("#C85lbl").text(isNumber(model.C85) ? model.C85.toPercent() : model.C85);
             $("#C86lbl").text(isNumber(model.C86) ? model.C86.toFixedDown(4) : model.C86);
             $("#C87lbl").text(isNumber(model.C87) ? model.C87.toFixedDown(4) : model.C87);
             $("#C88lbl").text(isNumber(model.C88) ? model.C88.toFixedDown(4) : model.C88);
-            $("#C89lbl").text(isNumber(model.C89) ? model.C89.toFixedDown(4) : model.C89);
+            $("#C89lbl").text(isNumber(model.C89) ? model.C89.toPercent() : model.C89);
             $("#C90lbl").text(isNumber(model.C90) ? model.C90.toFixedDown(4) : model.C90);
             $("#C91lbl").text(isNumber(model.C91) ? model.C91.toFixedDown(4) : model.C91);
             $("#C92lbl").text(isNumber(model.C92) ? model.C92.toFixedDown(4) : model.C92);
@@ -1487,7 +1500,7 @@ if (!window.JSON) {
             $("#H19lbl").text(isNumber(model.H19) ? model.H19.toFixedDown(4) : model.H19);
             $("#H20lbl").text(isNumber(model.H20) ? model.H20.toFixedDown(4) : model.H20);
             $("#H21lbl").text(isNumber(model.H21) ? model.H21.toFixedDown(4) : model.H21);
-            $("#H24lbl").text(isNumber(model.H24) ? model.H24.toFixedDown(4) : model.H24);
+            $("#H24lbl").text(isNumber(model.H24) ? toCurrency(model.H24) : model.H24);
 
             $("#H28lbl").text(isNumber(model.H28) ? model.H28.toFixedDown(4) : model.H28);
             $("#H29lbl").text(isNumber(model.H29) ? model.H29.toFixedDown(4) : model.H29);
@@ -1500,7 +1513,7 @@ if (!window.JSON) {
             $("#H36lbl").text(isNumber(model.H36) ? model.H36.toFixedDown(4) : model.H36);
             $("#H37lbl").text(isNumber(model.H37) ? model.H37.toFixedDown(4) : model.H37);
             $("#H38lbl").text(isNumber(model.H38) ? model.H38.toFixedDown(4) : model.H38);
-            $("#H39lbl").text(isNumber(model.H39) ? model.H39.toFixedDown(4) : model.H39);
+            $("#H39lbl").text(isNumber(model.H39) ? model.H39.toPercent() : model.H39);
             $("#H40lbl").text(isNumber(model.H40) ? model.H40.toFixedDown(4) : model.H40);
             $("#H41lbl").text(isNumber(model.H41) ? model.H41.toFixedDown(4) : model.H41);
             $("#H42lbl").text(isNumber(model.H42) ? model.H42.toFixedDown(4) : model.H42);
