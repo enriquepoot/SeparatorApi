@@ -296,6 +296,10 @@
 				value: -1,
 				writable: true
 			}
+			,"RunSolver": {
+				value: true,
+				writable: true
+			}
 		});
 	};
 })(window.PS = window.PS || {});

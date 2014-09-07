@@ -4,6 +4,16 @@ String.prototype.replaceAll = function (search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
+function isNumber(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+Number.prototype.toFixedDown = function(digits) {
+    var re = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+        m = this.toString().match(re);
+    return m ? parseFloat(m[1]) : this.valueOf();
+};
+
 if (!window.JSON) {
   window.JSON = {
     parse: function (sJSON) { return eval("(" + sJSON + ")"); },
@@ -92,7 +102,14 @@ if (!window.JSON) {
 			self.getDiv.append(divBHelper);
 
 			self.getDiv.append($(document.createElement("div")).attr({"class": "clear"}));
+
+			var divMinHelper = $(document.createElement("div")).attr({"class": "full"});
+			$('<label />', { 'for': 'RunSolver', text: 'Minimize Model', class: "right" }).appendTo(divMinHelper);
+		    $('<input />', { type: 'checkbox', id: 'RunSolver', value: 'MinimizeModel', class: "right", checked:"checked" }).appendTo(divMinHelper);
+		    self.getDiv.append(divMinHelper);
 			
+			self.getDiv.append($(document.createElement("div")).attr({"class": "clear"}));
+
 			var divBuHelper = $(document.createElement("div")).attr({"class": "full"});
 			divBuHelper.append(self.CreatePostButton().attr({"class": "right"}));
 			self.getDiv.append(divBuHelper);
@@ -109,22 +126,23 @@ if (!window.JSON) {
 			self.CreateLevelResDiv();
 			self.CreateBackButton();
 
-
 			var divPLHelper = $(document.createElement("div")).attr({"class": "left half"});
 			divPLHelper.append(self.cvResDiv.attr({"class": "container spaceBot"}));
+			divPLHelper.append(self.coResDiv.attr({"class": "container spaceBot"}));			
 			divPLHelper.append(self.leResDiv.attr({"class": "container spaceBot"}));			
-			
+			divPLHelper.append(self.noResDiv.attr({"class": "container spaceBot"}));
+
 			var divPRHelper = $(document.createElement("div")).attr({"class": "right half"});
-			divPRHelper.append(self.coResDiv.attr({"class": "container spaceBot"}));			
-			divPRHelper.append(self.noResDiv.attr({"class": "container spaceBot"}));
+			divPRHelper.append(self.spResDiv.attr({"class": "container spaceBot"}));			
 			
 			self.postDiv.append(divPLHelper);
 			self.postDiv.append(divPRHelper);
 
 			self.postDiv.append($(document.createElement("div")).attr({"class": "clear"}));
 
-			self.postDiv.append(self.spResDiv);
-			self.postDiv.append(self.CreateBackButton());
+			var divPBuHelper = $(document.createElement("div")).attr({"class": "full"});
+			divPBuHelper.append(self.CreateBackButton().attr({"class": "right"}));
+			self.postDiv.append(divPBuHelper);
 		}
 		//Main Divs
 		,CreateGetDiv: function (id) {
@@ -142,16 +160,34 @@ if (!window.JSON) {
 		//Get Divs
 		,CreateInputDiv: function () {
 			var self = this;
+
+			var vItems = [{
+				vID: 1
+				,text: "V"
+			},{
+				vID: 2
+				,text: "H"
+			}];
+
+			var yItems = [{
+				vID: 1
+				,text: "N"
+			},{
+				vID: 2
+				,text: "Y"
+			}];
+
+
 			self.inptDiv = self._CreateDiv("inptDiv");
-			var divHHelper = self._CreateDiv("`");
+			var divHHelper = self._CreateDiv("");
 			divHHelper.append(self._CreateHeader("Input Data").attr({"class": "header"}));
 			self.inptDiv.append(divHHelper);
-			self.inptDiv.append(self._CreateInput("B3", "Separator type, V or H?")); // Combobox
+			self.inptDiv.append(self._CreateInptCombo("B3", "Separator type, V or H?", vItems)); // Combobox
 			self.inptDiv.append(self._CreateInput("B7", "Average oil flowrate, stock tank bpd"));
 			self.inptDiv.append(self._CreateInput("B8", "Average gas flowrate, MMSCFD"));
 			self.inptDiv.append(self._CreateInput("B11", "Design/surge factor"));
 			self.inptDiv.append(self._CreateInput("B14", "Slug sizing, seconds of liquid filled pipe at design feed mixture velocity (same volume used for surge), sec"));
-			self.inptDiv.append(self._CreateInput("B15", "Foaming crude ? Y/N")); // Combobox
+			self.inptDiv.append(self._CreateInptCombo("B15", "Foaming crude ? Y/N", yItems)); // Combobox
 			self.inptDiv.append(self._CreateInput("B16", "Separator temperature, F"));
 			self.inptDiv.append(self._CreateInput("B18", "Separator pressure, psig"));
 			self.inptDiv.append(self._CreateInput("B20", "Gas gravity"));
@@ -465,345 +501,347 @@ if (!window.JSON) {
 			var items = [{
 				id: "A67"
 				,txt: ""
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B67"
 					,txt: "Design"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
-					id:"C68"
+					id:"C67"
 					,txt: "Actual"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A68"
 				,txt: "Liquid carryover in separated gas, gal/MMSCF"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B68"
 					,txt: "0.50"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C68"
 					,txt: "0.50"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A69"
 				,txt: "Free gas in separated oil, volume %"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B69"
 					,txt: "5.0%"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C69"
 					,txt: "5.0%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A70"
 				,txt: "Separable gas bubble size from oil, microns"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B70"
 					,txt: "00"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C70"
 					,txt: "00"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A71"
 				,txt: "Corrected oil residence time (NLL), min"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B71"
 					,txt: "1.00"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C71"
 					,txt: "1.00"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A72"
 				,txt: "Max allowable horiz oil velocity (horiz seps only), ft/sec"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B72"
 					,txt: "0.005"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C72"
 					,txt: "0.005"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A73"
 				,txt: "Feed pipe mixture velocity, ft/sec"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B73"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C73"
 					,txt: "20.0"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A74"
 				,txt: "Feed pipe flow pattern"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B74"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C74"
 					,txt: "Slup"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A75"
 				,txt: "Feed pipe ρV2, lb/ft-sec^2"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B75"
 					,txt: "2000"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C75"
 					,txt: "2000"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A76"
 				,txt: "Slug size, bbl"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B76"
 					,txt: "5.10"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C76"
 					,txt: "5.00"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A77"
 				,txt: "Entrainment fraction in feed pipe"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B77"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C77"
 					,txt: "5.5%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A78"
 				,txt: "Entrainment in feed pipe, gal/MMSCF"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B78"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C78"
 					,txt: "20.0"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A79"
 				,txt: "Inlet device separation efficiency"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B79"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C79"
 					,txt: "90.0%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A80"
 				,txt: "Entrained liquid exiting inlet device, gal/MMSCF"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B80"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C80"
 					,txt: "50.2"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A81"
 				,txt: "Plug flow Souders-Brown sizing coefficient in gas gravity separation section, Ks"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B81"
 					,txt: "0.50"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C81"
 					,txt: "0.50"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A82"
 				,txt: "Adjusted effective average gas velocity variation factor in gas gravity separation section, Vmax/Vavg, Fn"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B82"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C82"
 					,txt: "1.50"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A83"
 				,txt: "Souders-Brown sizing coefficient in gas gravity separation section adjusted for actual velocity, Ks"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B83"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C83"
 					,txt: "0.90"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A84"
 				,txt: "Separable oil droplet size from gas in gas gravity separation section, microns"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B84"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C84"
 					,txt: "1500"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A85"
 				,txt: "Gas gravity separation section droplet removal efficiency"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B85"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C85"
 					,txt: "50%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A86"
 				,txt: "Liquid content of gas to primary mist extractor, gal/MMSCF"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B86"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C86"
 					,txt: "30.2"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A87"
 				,txt: "Liquid content of gas to primary mist extractor, gpm/ft2"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B87"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C87"
 					,txt: "0.05"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A88"
 				,txt: "Primary mist extractor Ks (actual velocity), ft/sec"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B88"
 					,txt: "0.30"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C88"
 					,txt: "0.30"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A89"
 				,txt: "Primary mist extractor separation efficiency"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B89"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C89"
 					,txt: "90.0%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A90"
 				,txt: "Liquid content of gas to secondary mist extractor, gal/MMSCF"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B90"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C90"
 					,txt: "1.00"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A91"
 				,txt: "Secondary mist extractor Ks (actual velocity), ft/sec"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B91"
 					,txt: "NA"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C91"
 					,txt: "NA"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "A92"
 				,txt: "Secondary mist extractor separation efficiency"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"B92"
 					,txt: "-"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"C92"
 					,txt: "NA"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			}];
 
-			//self.spResDiv = self._CreateDiv("spResDiv");
 			self.spResDiv = self._CreateResponseLabel("spResContainer", items);
+			var divHHelper = self._CreateDiv("");
+			divHHelper.append(self._CreateHeader("Separation Performance").attr({"class": "header"}));
+			self.spResDiv.prepend(divHHelper);			
 		}
 		,CreateVesselResDiv: function () {
 			var self = this;
@@ -820,78 +858,81 @@ if (!window.JSON) {
 			},{
 				id: "G15"
 				,txt: "Calculated outside diameter, ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H15"
 					,txt: "5.50"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G16"
 				,txt: "Average vessel diameter, Dm, ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H16"
 					,txt: "5.15"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G17"
 				,txt: "Calculated vessel length, s/s, ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H17"
 					,txt: "7.30"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G18"
 				,txt: "Vessel L/D"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H18"
 					,txt: "1.00"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G19"
 				,txt: "Shell thickness incl. ca, in"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H19"
 					,txt: "2.10"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G20"
 				,txt: "Head thickness incl. ca, in"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H20"
 					,txt: "2.05"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G21"
 				,txt: "Vessel weight, lb"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H21"
 					,txt: "20,000"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G24"
 				,txt: "Vessel cost, C, $"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H24"
 					,txt: "196,000"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			}];
-		
-			self.cvResDiv = self._CreateResponseLabel("cvResContainer", items)
+			
+			self.cvResDiv = self._CreateResponseLabel("cvResContainer", items);
+			var divHHelper = self._CreateDiv("");
+			divHHelper.append(self._CreateHeader("Calculated Vessel Dimensions").attr({"class": "header"}));
+			self.cvResDiv.prepend(divHHelper);
 		}
 		,CreateConstrainsResDiv: function () {
 			var self = this;
@@ -899,159 +940,162 @@ if (!window.JSON) {
 			var items = [{
 				id: "G28"
 				,txt: "Max outside diameter, ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H28"
 					,txt: "-13.00"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G29"
 				,txt: "Max vessel length, ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H29"
 					,txt: "-70.00"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G30"
 				,txt: "Min distance between inlet device and mist extractor (vertical), ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H30"
 					,txt: "90.00"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G31"
 				,txt: "Vessel max L/D"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H31"
 					,txt: "-8.00"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G32"
 				,txt: "Vessel min L/D"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H32"
 					,txt: "-1.10"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G33"
 				,txt: "Liquid carryover, gal/MMSCF"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H33"
 					,txt: "-0.001"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G34"
 				,txt: "Gas gravity sep'n section Ks, ft sec"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H34"
 					,txt: "-0.20"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G35"
 				,txt: "Min diameter to accomm. Horiz mist extractor (vertical), ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H35"
 					,txt: "90,000"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G36"
 				,txt: "Primary mist extractor Ks, ft/sec"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H36"
 					,txt: "1.00"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G37"
 				,txt: "Re-entrainment constraint, Vr, ft/sec"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H37"
 					,txt: "-0.30"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G38"
 				,txt: "Separable gas bubble size, microns"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H38"
 					,txt: "-450"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G39"
 				,txt: "Free gas in separated oil, volume %"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H39"
 					,txt: "2.00%"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G40"
 				,txt: "Corrected oil residence time (NLL), min"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H40"
 					,txt: "1.50"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G41"
 				,txt: "Max horizontal oil velocity (horizontal), ft/sec"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H41"
 					,txt: "-0.20"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G42"
 				,txt: "Max HLSD/Di (horizontal)"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"G42"
 					,txt: "-0.05"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G43"
 				,txt: "Min gas space height Di-HLSD (horizontal), ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H43"
 					,txt: "0.10"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			},{
 				id: "G44"
 				,txt: "Min distance between HLSD and mist extractor (horizontal), ft"
-				,clss: ""
+				,clss: "spanResp"
 				,resp: [{
 					id:"H44"
 					,txt: "-0.90"
-					,clss: ""
+					,clss: "contResp"
 				}]				
 			}];
 		
 			self.coResDiv = self._CreateResponseLabel("coResContainer", items);
+			var divHHelper = self._CreateDiv("");
+			divHHelper.append(self._CreateHeader("Constraints").attr({"class": "header"}));
+			self.coResDiv.prepend(divHHelper);
 		}
 		,CreateNozzleResDiv: function () {
 			var self = this;
@@ -1059,58 +1103,61 @@ if (!window.JSON) {
 			var items = [{
 				id: "G49"
 				,txt: ""
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H28"
 					,txt: "Size, in"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I28"
 					,txt: "Inlet flow pattern"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "G51"
 				,txt: "Inlet nozzle"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H51"
 					,txt: "15"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I51"
 					,txt: "Slup"
-					,clss: ""
+					,clss: "contRespThird"
 				}]			
 			},{
 				id: "G52"
 				,txt: "Gas outlet nozzle"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H52"
 					,txt: "15"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I52"
 					,txt: ""
-					,clss: ""
+					,clss: "contRespThird"
 				}]			
 			},{
 				id: "G53"
 				,txt: "Oil outlet nozzle"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H53"
 					,txt: "5"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I53"
 					,txt: ""
-					,clss: ""
+					,clss: "contRespThird"
 				}]
 			}];				
 
 			self.noResDiv = self._CreateResponseLabel("noResContainer", items);
+			var divHHelper = self._CreateDiv("");
+			divHHelper.append(self._CreateHeader("Nozzles").attr({"class": "header"}));
+			self.noResDiv.prepend(divHHelper);			
 		}
 		,CreateLevelResDiv: function () {
 			var self = this;
@@ -1118,84 +1165,87 @@ if (!window.JSON) {
 			var items = [{
 				id: "G59"
 				,txt: "Vessel ID (horizontal), ft"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H59"
 					,txt: "5"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I59"
 					,txt: "90%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "G60"
 				,txt: "HLSD, ft"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H60"
 					,txt: "5"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"H60"
 					,txt: "70%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "G61"
 				,txt: "HLA, ft"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H61"
 					,txt: "5"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I61"
 					,txt: "90%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]				
 			},{
 				id: "G62"
 				,txt: "NLL, ft"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H62"
 					,txt: "5"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I62"
 					,txt: "90%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]			
 			},{
 				id: "G63"
 				,txt: "LLA, ft"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H63"
 					,txt: "5"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I63"
 					,txt: "90%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]			
 			},{
 				id: "G64"
 				,txt: "LLA, ft"
-				,clss: ""
+				,clss: "spanRespHalf"
 				,resp: [{
 					id:"H64"
 					,txt: "5"
-					,clss: ""
+					,clss: "contRespThird"
 				},{
 					id:"I64"
 					,txt: "90%"
-					,clss: ""
+					,clss: "contRespThird"
 				}]						
 			}];
 
 			self.leResDiv = self._CreateResponseLabel("leResContainer", items);
+			var divHHelper = self._CreateDiv("");
+			divHHelper.append(self._CreateHeader("Levels").attr({"class": "header"}));
+			self.leResDiv.prepend(divHHelper);				
 		}
 		,CreateBackButton: function () {
 			var self = this;
@@ -1296,7 +1346,8 @@ if (!window.JSON) {
 
             m.B514 = filterFloat($("#B514").val());
             m.C514 = filterFloat($("#C514").val());
-            m.RunSolver = true;
+
+            m.RunSolver = $('#RunSolver').is(":checked")
 
 			return JSON.stringify(m);
 		}
@@ -1387,83 +1438,85 @@ if (!window.JSON) {
             $("#A155").val(model.A155).change();
             $("#B514").val(model.B514).change();
             $("#C514").val(model.C514).change();
+
+            $("#RunSolver").attr({"checked": model.RunSolver});
 		}
 		,_BindPost: function (model) {
-            $("#B68lbl").text(model.B68);
-            $("#B69lbl").text(model.B69);
-            $("#B70lbl").text(model.B70);
-            $("#B71lbl").text(model.B71);
-            $("#B72lbl").text(model.B72);
-            $("#B75lbl").text(model.B75);
-            $("#B76lbl").text(model.B76);
-            $("#B81lbl").text(model.B81);
-            $("#B88lbl").text(model.B88);
-            $("#B91lbl").text(model.B91);
+            $("#B68lbl").text(isNumber(model.B68) ? model.B68.toFixedDown(4) : model.B69);
+            $("#B69lbl").text(isNumber(model.B69) ? model.B69.toFixedDown(4) : model.B69);
+            $("#B70lbl").text(isNumber(model.B70) ? model.B70.toFixedDown(4) : model.B70);
+            $("#B71lbl").text(isNumber(model.B71) ? model.B71.toFixedDown(4) : model.B71);
+            $("#B72lbl").text(isNumber(model.B72) ? model.B72.toFixedDown(4) : model.B72);
+            $("#B75lbl").text(isNumber(model.B75) ? model.B75.toFixedDown(4) : model.B75);
+            $("#B76lbl").text(isNumber(model.B76) ? model.B76.toFixedDown(4) : model.B76);
+            $("#B81lbl").text(isNumber(model.B81) ? model.B81.toFixedDown(4) : model.B81);
+            $("#B88lbl").text(isNumber(model.B88) ? model.B88.toFixedDown(4) : model.B88);
+            $("#B91lbl").text(isNumber(model.B91) ? model.B91.toFixedDown(4) : model.B91);
             
-            $("#C68lbl").text(model.C68);
-            $("#C69lbl").text(model.C69);
-            $("#C70lbl").text(model.C70);
-            $("#C71lbl").text(model.C71);
-            $("#C72lbl").text(model.C72);
-            $("#C73lbl").text(model.C73);
-            $("#C74lbl").text(model.C74);
-            $("#C75lbl").text(model.C75);
-            $("#C76lbl").text(model.C76);
-            $("#C77lbl").text(model.C77);
-            $("#C78lbl").text(model.C78);
-            $("#C79lbl").text(model.C79);
-            $("#C80lbl").text(model.C80);
-            $("#C81lbl").text(model.C81);
-            $("#C82lbl").text(model.C82);
-            $("#C83lbl").text(model.C83);
-            $("#C84lbl").text(model.C84);
-            $("#C85lbl").text(model.C85);
-            $("#C86lbl").text(model.C86);
-            $("#C87lbl").text(model.C87);
-            $("#C88lbl").text(model.C88);
-            $("#C89lbl").text(model.C89);
-            $("#C90lbl").text(model.C90);
-            $("#C91lbl").text(model.C91);
-            $("#C92lbl").text(model.C92);
+            $("#C68lbl").text(isNumber(model.C68) ? model.C68.toFixedDown(4) : model.C68);
+            $("#C69lbl").text(isNumber(model.C69) ? model.C69.toFixedDown(4) : model.C69);
+            $("#C70lbl").text(isNumber(model.C70) ? model.C70.toFixedDown(4) : model.C70);
+            $("#C71lbl").text(isNumber(model.C71) ? model.C71.toFixedDown(4) : model.C71);
+            $("#C72lbl").text(isNumber(model.C72) ? model.C72.toFixedDown(4) : model.C72);
+            $("#C73lbl").text(isNumber(model.C73) ? model.C73.toFixedDown(4) : model.C73);
+            $("#C74lbl").text(isNumber(model.C74) ? model.C74.toFixedDown(4) : model.C74);
+            $("#C75lbl").text(isNumber(model.C75) ? model.C75.toFixedDown(4) : model.C75);
+            $("#C76lbl").text(isNumber(model.C76) ? model.C76.toFixedDown(4) : model.C76);
+            $("#C77lbl").text(isNumber(model.C77) ? model.C77.toFixedDown(4) : model.C77);
+            $("#C78lbl").text(isNumber(model.C78) ? model.C78.toFixedDown(4) : model.C78);
+            $("#C79lbl").text(isNumber(model.C79) ? model.C79.toFixedDown(4) : model.C79);
+            $("#C80lbl").text(isNumber(model.C80) ? model.C80.toFixedDown(4) : model.C80);
+            $("#C81lbl").text(isNumber(model.C81) ? model.C81.toFixedDown(4) : model.C81);
+            $("#C82lbl").text(isNumber(model.C82) ? model.C82.toFixedDown(4) : model.C82);
+            $("#C83lbl").text(isNumber(model.C83) ? model.C83.toFixedDown(4) : model.C83);
+            $("#C84lbl").text(isNumber(model.C84) ? model.C84.toFixedDown(4) : model.C84);
+            $("#C85lbl").text(isNumber(model.C85) ? model.C85.toFixedDown(4) : model.C85);
+            $("#C86lbl").text(isNumber(model.C86) ? model.C86.toFixedDown(4) : model.C86);
+            $("#C87lbl").text(isNumber(model.C87) ? model.C87.toFixedDown(4) : model.C87);
+            $("#C88lbl").text(isNumber(model.C88) ? model.C88.toFixedDown(4) : model.C88);
+            $("#C89lbl").text(isNumber(model.C89) ? model.C89.toFixedDown(4) : model.C89);
+            $("#C90lbl").text(isNumber(model.C90) ? model.C90.toFixedDown(4) : model.C90);
+            $("#C91lbl").text(isNumber(model.C91) ? model.C91.toFixedDown(4) : model.C91);
+            $("#C92lbl").text(isNumber(model.C92) ? model.C92.toFixedDown(4) : model.C92);
             
-            $("#H14lbl").text(model.H14);
-            $("#H15lbl").text(model.H15);
-            $("#H16lbl").text(model.H16);
-            $("#H17lbl").text(model.H17);
-            $("#H18lbl").text(model.H18);
-            $("#H19lbl").text(model.H19);
-            $("#H20lbl").text(model.H20);
-            $("#H21lbl").text(model.H21);
-            $("#H24lbl").text(model.H24);
-            
-            $("#H28lbl").text(model.H28);
-            $("#H29lbl").text(model.H29);
-            $("#H30lbl").text(model.H30);
-            $("#H31lbl").text(model.H31);
-            $("#H32lbl").text(model.H32);
-            $("#H33lbl").text(model.H33);
-            $("#H34lbl").text(model.H34);
-            $("#H35lbl").text(model.H35);
-            $("#H36lbl").text(model.H36);
-            $("#H37lbl").text(model.H37);
-            $("#H38lbl").text(model.H38);
-            $("#H39lbl").text(model.H39);
-            $("#H40lbl").text(model.H40);
-            $("#H41lbl").text(model.H41);
-            $("#H42lbl").text(model.H42);
-            $("#H43lbl").text(model.H43);
-            $("#H44lbl").text(model.H44);
-            
-            $("#H51lbl").text(model.H51);
-            $("#H52lbl").text(model.H52);
-            $("#H53lbl").text(model.H53);
-            
-            $("#H59lbl").text(model.H59);
-            $("#H60lbl").text(model.H60);
-            $("#H61lbl").text(model.H61);
-            $("#H62lbl").text(model.H62);
-            $("#H63lbl").text(model.H63);
-            $("#H64lbl").text(model.H64);
+            $("#H14lbl").text(isNumber(model.H14) ? model.H14.toFixedDown(4) : model.H14);
+            $("#H15lbl").text(isNumber(model.H15) ? model.H15.toFixedDown(4) : model.H15);
+            $("#H16lbl").text(isNumber(model.H16) ? model.H16.toFixedDown(4) : model.H16);
+            $("#H17lbl").text(isNumber(model.H17) ? model.H17.toFixedDown(4) : model.H17);
+            $("#H18lbl").text(isNumber(model.H18) ? model.H18.toFixedDown(4) : model.H18);
+            $("#H19lbl").text(isNumber(model.H19) ? model.H19.toFixedDown(4) : model.H19);
+            $("#H20lbl").text(isNumber(model.H20) ? model.H20.toFixedDown(4) : model.H20);
+            $("#H21lbl").text(isNumber(model.H21) ? model.H21.toFixedDown(4) : model.H21);
+            $("#H24lbl").text(isNumber(model.H24) ? model.H24.toFixedDown(4) : model.H24);
+
+            $("#H28lbl").text(isNumber(model.H28) ? model.H28.toFixedDown(4) : model.H28);
+            $("#H29lbl").text(isNumber(model.H29) ? model.H29.toFixedDown(4) : model.H29);
+            $("#H30lbl").text(isNumber(model.H30) ? model.H30.toFixedDown(4) : model.H30);
+            $("#H31lbl").text(isNumber(model.H31) ? model.H31.toFixedDown(4) : model.H31);
+            $("#H32lbl").text(isNumber(model.H32) ? model.H32.toFixedDown(4) : model.H32);
+            $("#H33lbl").text(isNumber(model.H33) ? model.H33.toFixedDown(4) : model.H33);
+            $("#H34lbl").text(isNumber(model.H34) ? model.H34.toFixedDown(4) : model.H34);
+            $("#H35lbl").text(isNumber(model.H35) ? model.H35.toFixedDown(4) : model.H35);
+            $("#H36lbl").text(isNumber(model.H36) ? model.H36.toFixedDown(4) : model.H36);
+            $("#H37lbl").text(isNumber(model.H37) ? model.H37.toFixedDown(4) : model.H37);
+            $("#H38lbl").text(isNumber(model.H38) ? model.H38.toFixedDown(4) : model.H38);
+            $("#H39lbl").text(isNumber(model.H39) ? model.H39.toFixedDown(4) : model.H39);
+            $("#H40lbl").text(isNumber(model.H40) ? model.H40.toFixedDown(4) : model.H40);
+            $("#H41lbl").text(isNumber(model.H41) ? model.H41.toFixedDown(4) : model.H41);
+            $("#H42lbl").text(isNumber(model.H42) ? model.H42.toFixedDown(4) : model.H42);
+            $("#H43lbl").text(isNumber(model.H43) ? model.H43.toFixedDown(4) : model.H43);
+            $("#H44lbl").text(isNumber(model.H44) ? model.H44.toFixedDown(4) : model.H44);
+
+            $("#H51lbl").text(isNumber(model.H51) ? model.H51.toFixedDown(4) : model.H51);
+            $("#H52lbl").text(isNumber(model.H52) ? model.H52.toFixedDown(4) : model.H52);
+            $("#H53lbl").text(isNumber(model.H53) ? model.H53.toFixedDown(4) : model.H53);
+
+            $("#H59lbl").text(isNumber(model.H59) ? model.H59.toFixedDown(4) : model.H59);
+            $("#H60lbl").text(isNumber(model.H60) ? model.H60.toFixedDown(4) : model.H60);
+            $("#H61lbl").text(isNumber(model.H61) ? model.H61.toFixedDown(4) : model.H61);
+            $("#H62lbl").text(isNumber(model.H62) ? model.H62.toFixedDown(4) : model.H62);
+            $("#H63lbl").text(isNumber(model.H63) ? model.H63.toFixedDown(4) : model.H63);
+            $("#H64lbl").text(isNumber(model.H64) ? model.H64.toFixedDown(4) : model.H64);
 		}
 		,_Back: function (e, c) {
 			var self = c;
@@ -1522,6 +1575,28 @@ if (!window.JSON) {
 			})
 			.append(labelfor)
 			.append(input);
+
+			return innerDiv;
+		}
+		,_CreateInptCombo: function(id, text, items) {
+			var self = this;
+
+			var labelfor = $(document.createElement("label"))
+			.attr({
+				"for": id,
+				"class": "inputLabel"
+			})
+			.text(text);
+			
+			var combo = self._CreateComboBox(id, items).attr({"class": "inputCombo"});
+
+			var innerDiv = $(document.createElement("div"))
+			.attr({
+				"id": id + "Div",
+				"class": "inputContainer"
+			})
+			.append(labelfor)
+			.append(combo);
 
 			return innerDiv;
 		}
@@ -1816,7 +1891,7 @@ if (!window.JSON) {
 			var respDiv = self._CreateDiv(id);
 
 			for (var i in items) {
-				var lblDiv = self._CreateDiv(items[i].id+"Container");
+				var lblDiv = self._CreateDiv(items[i].id+"Container").attr({"class": "full miniSpace"});
 				lblDiv.append(self._CreateSpan(items[i].id+"Span", items[i].txt).attr({"class": items[i].clss}));
 				
 				for(var r in items[i].resp) {
