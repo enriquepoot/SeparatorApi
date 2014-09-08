@@ -5688,7 +5688,7 @@ namespace SolverSdk
                     e.Problem.FcnConstraint.Value[20] = sepSize.H30 >= 0 ? 1 : 0;
 
                     e.Problem.FcnObjective.Value[e.Problem.ObjectiveIndex] = sepSize.H21;
-
+                    //Console.wr
                     return Engine_Action.Continue;
                 };
 
