@@ -1,6 +1,7 @@
 ﻿using SolverPlatform;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -5629,6 +5630,7 @@ namespace SolverSdk
             double[] ub = { 20, 80 };
             double[] lb = { 2, 1.5 };
 
+            var sw = Stopwatch.StartNew();
             using (Problem prob = new Problem(Solver_Type.Minimize, 2, 21))
             {
                 prob.FcnConstraint.UpperBound.Array = ub_cons;
@@ -5657,14 +5659,19 @@ namespace SolverSdk
 
                 prob.Evaluators[Eval_Type.Function].OnEvaluate += (e) =>
                 {
+                    var swp = Stopwatch.StartNew();
                     var localModel = model;
                     var h7 = e.Problem.VarDecision.Value[0];
                     var h8 = e.Problem.VarDecision.Value[1];
 
+                    var swCreation = Stopwatch.StartNew();
                     var sepSize = new SeparatorSizing(localModel);
                     sepSize.H7 = h7;
                     sepSize.H8 = h8;
+                    swCreation.Stop();
+                    Console.WriteLine(String.Format("Creating Model SS: {0}", swCreation.ElapsedMilliseconds));
 
+                    swCreation = Stopwatch.StartNew();
                     e.Problem.FcnConstraint.Value[0] = sepSize.K73 >= sepSize.B48 ? 1 : 0;
                     e.Problem.FcnConstraint.Value[1] = sepSize.I74 >= sepSize.B49 ? 1 : 0;
                     e.Problem.FcnConstraint.Value[2] = sepSize.K72 >= sepSize.B50 ? 1 : 0;
@@ -5686,9 +5693,18 @@ namespace SolverSdk
                     e.Problem.FcnConstraint.Value[18] = sepSize.H29 <= 0 ? 1 : 0;
                     e.Problem.FcnConstraint.Value[19] = sepSize.H28 <= 0 ? 1 : 0;
                     e.Problem.FcnConstraint.Value[20] = sepSize.H30 >= 0 ? 1 : 0;
+                    swCreation.Stop();
+                    Console.WriteLine(String.Format("Getting Constrains: {0}", swCreation.ElapsedMilliseconds));
 
+                    swCreation = Stopwatch.StartNew();
                     e.Problem.FcnObjective.Value[e.Problem.ObjectiveIndex] = sepSize.H21;
-                    //Console.wr
+                    swCreation.Stop();
+                    Console.WriteLine(String.Format("H21 Time: {0}", swCreation.ElapsedMilliseconds));
+                    Console.WriteLine(String.Format("Function Evals: {0}", e.Problem.Engine.Stat.FunctionEvals));
+                    Console.WriteLine(String.Format("H21: {0}", sepSize.H21));
+                    swp.Stop();
+                    Console.WriteLine(String.Format("Elapsed Time per Iteration: {0}", swp.ElapsedMilliseconds));
+                    Console.WriteLine(System.Environment.NewLine);
                     return Engine_Action.Continue;
                 };
 
@@ -5699,7 +5715,8 @@ namespace SolverSdk
                 SeparatorSizing result = new SeparatorSizing(model);
                 result.H7 = _h7;
                 result.H8 = _h8;
-
+                sw.Stop();
+                Console.WriteLine(String.Format("Elapsed Time: {0}", sw.ElapsedMilliseconds));
                 return result;
             }
         }
